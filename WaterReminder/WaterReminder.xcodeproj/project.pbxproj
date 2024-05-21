@@ -78,34 +78,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		31EA2CD32BD4535300C71690 /* System Files */ = {
-			isa = PBXGroup;
-			children = (
-				3F291C1E2BECCFD20044D373 /* WaterReminder.xcdatamodeld */,
-				3F291C262BECCFD40044D373 /* Info.plist */,
-				3F291C232BECCFD40044D373 /* LaunchScreen.storyboard */,
-				3F291C212BECCFD40044D373 /* Assets.xcassets */,
-				3F291C152BECCFD20044D373 /* AppDelegate.swift */,
-				3F291C172BECCFD20044D373 /* SceneDelegate.swift */,
-			);
-			name = "System Files";
-			sourceTree = "<group>";
-		};
-		31EA2CD42BD4538F00C71690 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				3F291C192BECCFD20044D373 /* ViewController.swift */,
-			);
-			name = Controllers;
-			sourceTree = "<group>";
-		};
-		31EA2CD52BD453BA00C71690 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		3F291C092BECCFD20044D373 = {
 			isa = PBXGroup;
 			children = (
@@ -129,10 +101,14 @@
 		3F291C142BECCFD20044D373 /* WaterReminder */ = {
 			isa = PBXGroup;
 			children = (
-				31EA2CD52BD453BA00C71690 /* Models */,
+				3F291C152BECCFD20044D373 /* AppDelegate.swift */,
+				3F291C172BECCFD20044D373 /* SceneDelegate.swift */,
+				3F291C192BECCFD20044D373 /* ViewController.swift */,
 				3F291C1B2BECCFD20044D373 /* Main.storyboard */,
-				31EA2CD42BD4538F00C71690 /* Controllers */,
-				31EA2CD32BD4535300C71690 /* System Files */,
+				3F291C212BECCFD40044D373 /* Assets.xcassets */,
+				3F291C232BECCFD40044D373 /* LaunchScreen.storyboard */,
+				3F291C262BECCFD40044D373 /* Info.plist */,
+				3F291C1E2BECCFD20044D373 /* WaterReminder.xcdatamodeld */,
 			);
 			path = WaterReminder;
 			sourceTree = "<group>";
