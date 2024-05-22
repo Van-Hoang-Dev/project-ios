@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		318698EA2BFE250B00D3E679 /* SelectGoalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318698E92BFE250B00D3E679 /* SelectGoalCell.swift */; };
+		318698EC2BFE269700D3E679 /* SelectGoalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318698EB2BFE269700D3E679 /* SelectGoalController.swift */; };
 		3F291C162BECCFD20044D373 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F291C152BECCFD20044D373 /* AppDelegate.swift */; };
 		3F291C182BECCFD20044D373 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F291C172BECCFD20044D373 /* SceneDelegate.swift */; };
 		3F291C1A2BECCFD20044D373 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F291C192BECCFD20044D373 /* ViewController.swift */; };
@@ -37,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		318698E92BFE250B00D3E679 /* SelectGoalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGoalCell.swift; sourceTree = "<group>"; };
+		318698EB2BFE269700D3E679 /* SelectGoalController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGoalController.swift; sourceTree = "<group>"; };
 		3F291C122BECCFD20044D373 /* WaterReminder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WaterReminder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F291C152BECCFD20044D373 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3F291C172BECCFD20044D373 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -109,6 +113,8 @@
 				3F291C232BECCFD40044D373 /* LaunchScreen.storyboard */,
 				3F291C262BECCFD40044D373 /* Info.plist */,
 				3F291C1E2BECCFD20044D373 /* WaterReminder.xcdatamodeld */,
+				318698E92BFE250B00D3E679 /* SelectGoalCell.swift */,
+				318698EB2BFE269700D3E679 /* SelectGoalController.swift */,
 			);
 			path = WaterReminder;
 			sourceTree = "<group>";
@@ -263,7 +269,9 @@
 			files = (
 				3F291C1A2BECCFD20044D373 /* ViewController.swift in Sources */,
 				3F291C162BECCFD20044D373 /* AppDelegate.swift in Sources */,
+				318698EA2BFE250B00D3E679 /* SelectGoalCell.swift in Sources */,
 				3F291C182BECCFD20044D373 /* SceneDelegate.swift in Sources */,
+				318698EC2BFE269700D3E679 /* SelectGoalController.swift in Sources */,
 				3F291C202BECCFD20044D373 /* WaterReminder.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
