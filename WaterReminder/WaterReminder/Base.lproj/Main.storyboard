@@ -1540,10 +1540,10 @@
             </objects>
             <point key="canvasLocation" x="492" y="668"/>
         </scene>
-        <!--View Controller-->
+        <!--Time Picker Controller-->
         <scene sceneID="6pw-sU-XWd">
             <objects>
-                <viewController id="jXd-ub-H7q" sceneMemberID="viewController">
+                <viewController id="jXd-ub-H7q" customClass="TimePickerController" customModule="WaterReminder" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EO7-Np-H7b">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1659,6 +1659,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="5UF-eE-Gq9"/>
+                    <connections>
+                        <outlet property="sleepTime" destination="PDK-50-Cw8" id="DwI-2P-Y89"/>
+                        <outlet property="wakeUpTime" destination="Ce5-6t-fiv" id="5Yp-vc-uNd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5zu-f6-J1g" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
