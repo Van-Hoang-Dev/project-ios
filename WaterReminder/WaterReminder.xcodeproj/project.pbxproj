@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		318698EA2BFE250B00D3E679 /* SelectGoalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318698E92BFE250B00D3E679 /* SelectGoalCell.swift */; };
-		318698EC2BFE269700D3E679 /* SelectGoalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318698EB2BFE269700D3E679 /* SelectGoalController.swift */; };
 		04A823C52BFCF7520006011D /* InfoUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A823C42BFCF7520006011D /* InfoUser.swift */; };
 		04A823C72BFCFC1B0006011D /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A823C62BFCFC1B0006011D /* Time.swift */; };
 		04A823C92BFD05D10006011D /* TimePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A823C82BFD05D10006011D /* TimePickerController.swift */; };
@@ -19,6 +17,8 @@
 		0C3D3C782BFDD23B00ABE79B /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D3C702BFDD23B00ABE79B /* FMDatabase.m */; };
 		0C3D3C7C2BFDD2CD00ABE79B /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D3C7B2BFDD2CD00ABE79B /* Database.swift */; };
 		0C3D3C7F2BFDD3D000ABE79B /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C3D3C7E2BFDD3D000ABE79B /* libsqlite3.0.tbd */; };
+		318698EA2BFE250B00D3E679 /* SelectGoalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318698E92BFE250B00D3E679 /* SelectGoalCell.swift */; };
+		318698EC2BFE269700D3E679 /* SelectGoalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318698EB2BFE269700D3E679 /* SelectGoalController.swift */; };
 		3F291C162BECCFD20044D373 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F291C152BECCFD20044D373 /* AppDelegate.swift */; };
 		3F291C182BECCFD20044D373 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F291C172BECCFD20044D373 /* SceneDelegate.swift */; };
 		3F291C1A2BECCFD20044D373 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F291C192BECCFD20044D373 /* ViewController.swift */; };
@@ -49,8 +49,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		318698E92BFE250B00D3E679 /* SelectGoalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGoalCell.swift; sourceTree = "<group>"; };
-		318698EB2BFE269700D3E679 /* SelectGoalController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGoalController.swift; sourceTree = "<group>"; };
 		04A823C42BFCF7520006011D /* InfoUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoUser.swift; sourceTree = "<group>"; };
 		04A823C62BFCFC1B0006011D /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
 		04A823C82BFD05D10006011D /* TimePickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerController.swift; sourceTree = "<group>"; };
@@ -68,6 +66,8 @@
 		0C3D3C732BFDD23B00ABE79B /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMResultSet.h; path = WaterReminder/FMDB/src/FMResultSet.h; sourceTree = SOURCE_ROOT; };
 		0C3D3C7B2BFDD2CD00ABE79B /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		0C3D3C7E2BFDD3D000ABE79B /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		318698E92BFE250B00D3E679 /* SelectGoalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGoalCell.swift; sourceTree = "<group>"; };
+		318698EB2BFE269700D3E679 /* SelectGoalController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGoalController.swift; sourceTree = "<group>"; };
 		3F291C122BECCFD20044D373 /* WaterReminder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WaterReminder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F291C152BECCFD20044D373 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3F291C172BECCFD20044D373 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -113,12 +113,11 @@
 		04A823C12BFCF6B40006011D /* Systems */ = {
 			isa = PBXGroup;
 			children = (
+				3F291C262BECCFD40044D373 /* Info.plist */,
+				3F291C232BECCFD40044D373 /* LaunchScreen.storyboard */,
+				3F291C212BECCFD40044D373 /* Assets.xcassets */,
 				3F291C152BECCFD20044D373 /* AppDelegate.swift */,
 				3F291C172BECCFD20044D373 /* SceneDelegate.swift */,
-				3F291C1E2BECCFD20044D373 /* WaterReminder.xcdatamodeld */,
-				3F291C262BECCFD40044D373 /* Info.plist */,
-				3F291C212BECCFD40044D373 /* Assets.xcassets */,
-				3F291C232BECCFD40044D373 /* LaunchScreen.storyboard */,
 			);
 			name = Systems;
 			sourceTree = "<group>";
@@ -126,6 +125,7 @@
 		04A823C22BFCF6E80006011D /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				318698EB2BFE269700D3E679 /* SelectGoalController.swift */,
 				3F291C192BECCFD20044D373 /* ViewController.swift */,
 				04A823C82BFD05D10006011D /* TimePickerController.swift */,
 			);
@@ -193,6 +193,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		314AA81D2BFE3BD000AF0CA4 /* controls */ = {
+			isa = PBXGroup;
+			children = (
+				318698E92BFE250B00D3E679 /* SelectGoalCell.swift */,
+			);
+			name = controls;
+			sourceTree = "<group>";
+		};
 		3F291C092BECCFD20044D373 = {
 			isa = PBXGroup;
 			children = (
@@ -217,16 +225,12 @@
 		3F291C142BECCFD20044D373 /* WaterReminder */ = {
 			isa = PBXGroup;
 			children = (
+				314AA81D2BFE3BD000AF0CA4 /* controls */,
 				0C3D3C632BFDD13200ABE79B /* FMDB */,
 				04A823C32BFCF71E0006011D /* models */,
 				04A823C22BFCF6E80006011D /* controllers */,
 				3F291C1B2BECCFD20044D373 /* Main.storyboard */,
-				3F291C212BECCFD40044D373 /* Assets.xcassets */,
-				3F291C232BECCFD40044D373 /* LaunchScreen.storyboard */,
-				3F291C262BECCFD40044D373 /* Info.plist */,
 				3F291C1E2BECCFD20044D373 /* WaterReminder.xcdatamodeld */,
-				318698E92BFE250B00D3E679 /* SelectGoalCell.swift */,
-				318698EB2BFE269700D3E679 /* SelectGoalController.swift */,
 				04A823C12BFCF6B40006011D /* Systems */,
 			);
 			path = WaterReminder;
