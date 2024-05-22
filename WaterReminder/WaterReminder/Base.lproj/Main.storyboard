@@ -1291,8 +1291,6 @@
         <image name="cup1" width="170.66667175292969" height="170.66667175292969"/>
         <image name="moon" width="170.66667175292969" height="170.66667175292969"/>
         <image name="plus" width="800" height="800"/>
-        <image name="rabibutton_selected" width="170.66667175292969" height="170.66667175292969"/>
-        <image name="radibutton" width="170.66667175292969" height="170.66667175292969"/>
         <image name="sun" width="170.66667175292969" height="170.66667175292969"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
