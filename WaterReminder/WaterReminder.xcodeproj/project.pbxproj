@@ -253,6 +253,8 @@
 				3F291C1B2BECCFD20044D373 /* Main.storyboard */,
 				3F291C1E2BECCFD20044D373 /* WaterReminder.xcdatamodeld */,
 				04A823C12BFCF6B40006011D /* Systems */,
+				318698E92BFE250B00D3E679 /* SelectGoalCell.swift */,
+				318698EB2BFE269700D3E679 /* SelectGoalController.swift */,
 			);
 			path = WaterReminder;
 			sourceTree = "<group>";

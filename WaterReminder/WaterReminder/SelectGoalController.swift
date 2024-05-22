@@ -16,6 +16,7 @@ class SelectGoalController: UIViewController, UITableViewDataSource, UITableView
     var goals = [String]()
     var user:User?
     
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         goals.count
     }
