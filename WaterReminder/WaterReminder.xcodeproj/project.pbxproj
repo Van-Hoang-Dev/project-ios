@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04A823C52BFCF7520006011D /* InfoUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A823C42BFCF7520006011D /* InfoUser.swift */; };
+		04A823C72BFCFC1B0006011D /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A823C62BFCFC1B0006011D /* Time.swift */; };
+		04A823C92BFD05D10006011D /* TimePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A823C82BFD05D10006011D /* TimePickerController.swift */; };
+		0C3D3C742BFDD23B00ABE79B /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D3C6A2BFDD23A00ABE79B /* FMDatabaseQueue.m */; };
+		0C3D3C752BFDD23B00ABE79B /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D3C6C2BFDD23B00ABE79B /* FMDatabasePool.m */; };
+		0C3D3C762BFDD23B00ABE79B /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D3C6D2BFDD23B00ABE79B /* FMResultSet.m */; };
+		0C3D3C772BFDD23B00ABE79B /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D3C6E2BFDD23B00ABE79B /* FMDatabaseAdditions.m */; };
+		0C3D3C782BFDD23B00ABE79B /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D3C702BFDD23B00ABE79B /* FMDatabase.m */; };
+		0C3D3C7C2BFDD2CD00ABE79B /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D3C7B2BFDD2CD00ABE79B /* Database.swift */; };
+		0C3D3C7F2BFDD3D000ABE79B /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C3D3C7E2BFDD3D000ABE79B /* libsqlite3.0.tbd */; };
 		318698EA2BFE250B00D3E679 /* SelectGoalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318698E92BFE250B00D3E679 /* SelectGoalCell.swift */; };
 		318698EC2BFE269700D3E679 /* SelectGoalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318698EB2BFE269700D3E679 /* SelectGoalController.swift */; };
 		3F291C162BECCFD20044D373 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F291C152BECCFD20044D373 /* AppDelegate.swift */; };
@@ -39,6 +49,23 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04A823C42BFCF7520006011D /* InfoUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoUser.swift; sourceTree = "<group>"; };
+		04A823C62BFCFC1B0006011D /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
+		04A823C82BFD05D10006011D /* TimePickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerController.swift; sourceTree = "<group>"; };
+		0C3D3C682BFDD23900ABE79B /* WaterReminder-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WaterReminder-Bridging-Header.h"; sourceTree = "<group>"; };
+		0C3D3C692BFDD23A00ABE79B /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDB.h; path = WaterReminder/FMDB/src/FMDB.h; sourceTree = SOURCE_ROOT; };
+		0C3D3C6A2BFDD23A00ABE79B /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseQueue.m; path = WaterReminder/FMDB/src/FMDatabaseQueue.m; sourceTree = SOURCE_ROOT; };
+		0C3D3C6B2BFDD23A00ABE79B /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabaseAdditions.h; path = WaterReminder/FMDB/src/FMDatabaseAdditions.h; sourceTree = SOURCE_ROOT; };
+		0C3D3C6C2BFDD23B00ABE79B /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDatabasePool.m; path = WaterReminder/FMDB/src/FMDatabasePool.m; sourceTree = SOURCE_ROOT; };
+		0C3D3C6D2BFDD23B00ABE79B /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMResultSet.m; path = WaterReminder/FMDB/src/FMResultSet.m; sourceTree = SOURCE_ROOT; };
+		0C3D3C6E2BFDD23B00ABE79B /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseAdditions.m; path = WaterReminder/FMDB/src/FMDatabaseAdditions.m; sourceTree = SOURCE_ROOT; };
+		0C3D3C6F2BFDD23B00ABE79B /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabase.h; path = WaterReminder/FMDB/src/FMDatabase.h; sourceTree = SOURCE_ROOT; };
+		0C3D3C702BFDD23B00ABE79B /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDatabase.m; path = WaterReminder/FMDB/src/FMDatabase.m; sourceTree = SOURCE_ROOT; };
+		0C3D3C712BFDD23B00ABE79B /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabasePool.h; path = WaterReminder/FMDB/src/FMDatabasePool.h; sourceTree = SOURCE_ROOT; };
+		0C3D3C722BFDD23B00ABE79B /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabaseQueue.h; path = WaterReminder/FMDB/src/FMDatabaseQueue.h; sourceTree = SOURCE_ROOT; };
+		0C3D3C732BFDD23B00ABE79B /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMResultSet.h; path = WaterReminder/FMDB/src/FMResultSet.h; sourceTree = SOURCE_ROOT; };
+		0C3D3C7B2BFDD2CD00ABE79B /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		0C3D3C7E2BFDD3D000ABE79B /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		318698E92BFE250B00D3E679 /* SelectGoalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGoalCell.swift; sourceTree = "<group>"; };
 		318698EB2BFE269700D3E679 /* SelectGoalController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGoalController.swift; sourceTree = "<group>"; };
 		3F291C122BECCFD20044D373 /* WaterReminder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WaterReminder.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -62,6 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C3D3C7F2BFDD3D000ABE79B /* libsqlite3.0.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,6 +110,97 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04A823C12BFCF6B40006011D /* Systems */ = {
+			isa = PBXGroup;
+			children = (
+				3F291C262BECCFD40044D373 /* Info.plist */,
+				3F291C232BECCFD40044D373 /* LaunchScreen.storyboard */,
+				3F291C212BECCFD40044D373 /* Assets.xcassets */,
+				3F291C152BECCFD20044D373 /* AppDelegate.swift */,
+				3F291C172BECCFD20044D373 /* SceneDelegate.swift */,
+			);
+			name = Systems;
+			sourceTree = "<group>";
+		};
+		04A823C22BFCF6E80006011D /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				318698EB2BFE269700D3E679 /* SelectGoalController.swift */,
+				3F291C192BECCFD20044D373 /* ViewController.swift */,
+				04A823C82BFD05D10006011D /* TimePickerController.swift */,
+			);
+			name = controllers;
+			sourceTree = "<group>";
+		};
+		04A823C32BFCF71E0006011D /* models */ = {
+			isa = PBXGroup;
+			children = (
+				04A823C42BFCF7520006011D /* InfoUser.swift */,
+				04A823C62BFCFC1B0006011D /* Time.swift */,
+			);
+			name = models;
+			sourceTree = "<group>";
+		};
+		0C3D3C632BFDD13200ABE79B /* FMDB */ = {
+			isa = PBXGroup;
+			children = (
+				0C3D3C672BFDD20500ABE79B /* fmdb framework */,
+				0C3D3C662BFDD1FC00ABE79B /* DAL */,
+				0C3D3C642BFDD14C00ABE79B /* src */,
+			);
+			path = FMDB;
+			sourceTree = "<group>";
+		};
+		0C3D3C642BFDD14C00ABE79B /* src */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		0C3D3C662BFDD1FC00ABE79B /* DAL */ = {
+			isa = PBXGroup;
+			children = (
+				0C3D3C7B2BFDD2CD00ABE79B /* Database.swift */,
+			);
+			path = DAL;
+			sourceTree = "<group>";
+		};
+		0C3D3C672BFDD20500ABE79B /* fmdb framework */ = {
+			isa = PBXGroup;
+			children = (
+				0C3D3C6F2BFDD23B00ABE79B /* FMDatabase.h */,
+				0C3D3C702BFDD23B00ABE79B /* FMDatabase.m */,
+				0C3D3C6B2BFDD23A00ABE79B /* FMDatabaseAdditions.h */,
+				0C3D3C6E2BFDD23B00ABE79B /* FMDatabaseAdditions.m */,
+				0C3D3C712BFDD23B00ABE79B /* FMDatabasePool.h */,
+				0C3D3C6C2BFDD23B00ABE79B /* FMDatabasePool.m */,
+				0C3D3C722BFDD23B00ABE79B /* FMDatabaseQueue.h */,
+				0C3D3C6A2BFDD23A00ABE79B /* FMDatabaseQueue.m */,
+				0C3D3C692BFDD23A00ABE79B /* FMDB.h */,
+				0C3D3C732BFDD23B00ABE79B /* FMResultSet.h */,
+				0C3D3C6D2BFDD23B00ABE79B /* FMResultSet.m */,
+				0C3D3C682BFDD23900ABE79B /* WaterReminder-Bridging-Header.h */,
+			);
+			path = "fmdb framework";
+			sourceTree = "<group>";
+		};
+		0C3D3C7D2BFDD3D000ABE79B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0C3D3C7E2BFDD3D000ABE79B /* libsqlite3.0.tbd */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		314AA81D2BFE3BD000AF0CA4 /* controls */ = {
+			isa = PBXGroup;
+			children = (
+				318698E92BFE250B00D3E679 /* SelectGoalCell.swift */,
+			);
+			name = controls;
+			sourceTree = "<group>";
+		};
 		3F291C092BECCFD20044D373 = {
 			isa = PBXGroup;
 			children = (
@@ -89,6 +208,7 @@
 				3F291C2E2BECCFD50044D373 /* WaterReminderTests */,
 				3F291C382BECCFD50044D373 /* WaterReminderUITests */,
 				3F291C132BECCFD20044D373 /* Products */,
+				0C3D3C7D2BFDD3D000ABE79B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -105,16 +225,13 @@
 		3F291C142BECCFD20044D373 /* WaterReminder */ = {
 			isa = PBXGroup;
 			children = (
-				3F291C152BECCFD20044D373 /* AppDelegate.swift */,
-				3F291C172BECCFD20044D373 /* SceneDelegate.swift */,
-				3F291C192BECCFD20044D373 /* ViewController.swift */,
+				314AA81D2BFE3BD000AF0CA4 /* controls */,
+				0C3D3C632BFDD13200ABE79B /* FMDB */,
+				04A823C32BFCF71E0006011D /* models */,
+				04A823C22BFCF6E80006011D /* controllers */,
 				3F291C1B2BECCFD20044D373 /* Main.storyboard */,
-				3F291C212BECCFD40044D373 /* Assets.xcassets */,
-				3F291C232BECCFD40044D373 /* LaunchScreen.storyboard */,
-				3F291C262BECCFD40044D373 /* Info.plist */,
 				3F291C1E2BECCFD20044D373 /* WaterReminder.xcdatamodeld */,
-				318698E92BFE250B00D3E679 /* SelectGoalCell.swift */,
-				318698EB2BFE269700D3E679 /* SelectGoalController.swift */,
+				04A823C12BFCF6B40006011D /* Systems */,
 			);
 			path = WaterReminder;
 			sourceTree = "<group>";
@@ -204,6 +321,7 @@
 				TargetAttributes = {
 					3F291C112BECCFD20044D373 = {
 						CreatedOnToolsVersion = 14.2;
+						LastSwiftMigration = 1420;
 					};
 					3F291C2A2BECCFD50044D373 = {
 						CreatedOnToolsVersion = 14.2;
@@ -267,12 +385,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04A823C72BFCFC1B0006011D /* Time.swift in Sources */,
+				0C3D3C742BFDD23B00ABE79B /* FMDatabaseQueue.m in Sources */,
+				04A823C52BFCF7520006011D /* InfoUser.swift in Sources */,
+				0C3D3C782BFDD23B00ABE79B /* FMDatabase.m in Sources */,
 				3F291C1A2BECCFD20044D373 /* ViewController.swift in Sources */,
+				0C3D3C762BFDD23B00ABE79B /* FMResultSet.m in Sources */,
+				0C3D3C752BFDD23B00ABE79B /* FMDatabasePool.m in Sources */,
 				3F291C162BECCFD20044D373 /* AppDelegate.swift in Sources */,
 				318698EA2BFE250B00D3E679 /* SelectGoalCell.swift in Sources */,
+				0C3D3C772BFDD23B00ABE79B /* FMDatabaseAdditions.m in Sources */,
 				3F291C182BECCFD20044D373 /* SceneDelegate.swift in Sources */,
 				318698EC2BFE269700D3E679 /* SelectGoalController.swift in Sources */,
 				3F291C202BECCFD20044D373 /* WaterReminder.xcdatamodeld in Sources */,
+				0C3D3C7C2BFDD2CD00ABE79B /* Database.swift in Sources */,
+				04A823C92BFD05D10006011D /* TimePickerController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -447,6 +574,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -464,6 +592,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = vn.tdc.edu.WaterReminder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "WaterReminder/FMDB/fmdb framework/WaterReminder-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -474,6 +604,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -491,6 +622,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = vn.tdc.edu.WaterReminder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "WaterReminder/FMDB/fmdb framework/WaterReminder-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
