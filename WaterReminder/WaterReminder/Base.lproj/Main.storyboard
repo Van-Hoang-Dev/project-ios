@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ntB-hg-5eL">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ntB-hg-5eL">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Choose Controller-->
         <scene sceneID="rxw-QM-K3q">
             <objects>
-                <viewController id="9uk-hK-qCe" customClass="ViewController" customModule="WaterReminder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="9uk-hK-qCe" customClass="ChooseController" customModule="WaterReminder" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="swf-HY-9jx">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -52,15 +53,15 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Z0l-cp-Hu8">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="Z0l-cp-Hu8" customClass="CollectionViewCell" customModule="WaterReminder" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="k7o-RT-MgB">
                                             <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="200ml" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KUo-te-zAd">
-                                                    <rect key="frame" x="28" y="80" width="72" height="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="200ml" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KUo-te-zAd">
+                                                    <rect key="frame" x="28" y="80" width="72" height="25"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -83,8 +84,16 @@
                                                 <constraint firstAttribute="trailing" secondItem="b3O-Lw-QWQ" secondAttribute="trailing" constant="39" id="xPO-b1-qkA"/>
                                             </constraints>
                                         </collectionViewCellContentView>
+                                        <connections>
+                                            <outlet property="imageView" destination="b3O-Lw-QWQ" id="7kt-DJ-Qjq"/>
+                                            <outlet property="mlWaterLabel" destination="KUo-te-zAd" id="FLZ-vP-2th"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="9uk-hK-qCe" id="2jh-gT-kzz"/>
+                                    <outlet property="delegate" destination="9uk-hK-qCe" id="AZe-jh-T82"/>
+                                </connections>
                             </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="gYF-no-VtW"/>
@@ -106,6 +115,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="u2C-0y-S3o"/>
+                    <connections>
+                        <outlet property="colectionView" destination="Hyp-V5-2le" id="HX4-P3-goQ"/>
+                        <outlet property="collectionView" destination="Hyp-V5-2le" id="4Uk-o2-nLp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dNt-Gj-69m" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -145,15 +158,15 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" spacing="58" translatesAutoresizingMaskIntoConstraints="NO" id="FuY-55-KEw">
-                                        <rect key="frame" x="92" y="123.00000000000003" width="208" height="34.333333333333343"/>
+                                        <rect key="frame" x="92" y="123.00000000000003" width="208" height="38.333333333333343"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="97a-Ek-FrC">
-                                                <rect key="frame" x="0.0" y="0.0" width="75" height="34.333333333333336"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="75" height="38.333333333333336"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="Button"/>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cik-3Y-eoo">
-                                                <rect key="frame" x="133" y="0.0" width="75" height="34.333333333333336"/>
+                                                <rect key="frame" x="133" y="0.0" width="75" height="38.333333333333336"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="Button"/>
                                             </button>
@@ -454,7 +467,7 @@
         <!--Add-->
         <scene sceneID="Z7Y-D1-ckC">
             <objects>
-                <viewController id="UTT-x5-cBf" sceneMemberID="viewController">
+                <viewController id="UTT-x5-cBf" customClass="AddController" customModule="WaterReminder" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Yqz-A0-h50">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -544,7 +557,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H1G-Qi-HNn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5620.6106870229005" y="-49.295774647887328"/>
+            <point key="canvasLocation" x="5595" y="-49"/>
         </scene>
         <!--Home-->
         <scene sceneID="2kE-S1-Z9b">

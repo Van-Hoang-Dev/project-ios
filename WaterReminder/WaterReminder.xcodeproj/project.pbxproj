@@ -17,6 +17,10 @@
 		3F291C302BECCFD50044D373 /* WaterReminderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F291C2F2BECCFD50044D373 /* WaterReminderTests.swift */; };
 		3F291C3A2BECCFD50044D373 /* WaterReminderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F291C392BECCFD50044D373 /* WaterReminderUITests.swift */; };
 		3F291C3C2BECCFD50044D373 /* WaterReminderUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F291C3B2BECCFD50044D373 /* WaterReminderUITestsLaunchTests.swift */; };
+		E895653A2BFF299D002527E9 /* AddController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89565392BFF299D002527E9 /* AddController.swift */; };
+		E895653C2BFF31EC002527E9 /* ChooseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E895653B2BFF31EC002527E9 /* ChooseController.swift */; };
+		E895653F2BFF3521002527E9 /* InfoWater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E895653E2BFF3521002527E9 /* InfoWater.swift */; };
+		E89565442BFF3E98002527E9 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89565432BFF3E98002527E9 /* CollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +55,10 @@
 		3F291C352BECCFD50044D373 /* WaterReminderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WaterReminderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F291C392BECCFD50044D373 /* WaterReminderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterReminderUITests.swift; sourceTree = "<group>"; };
 		3F291C3B2BECCFD50044D373 /* WaterReminderUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterReminderUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E89565392BFF299D002527E9 /* AddController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddController.swift; sourceTree = "<group>"; };
+		E895653B2BFF31EC002527E9 /* ChooseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseController.swift; sourceTree = "<group>"; };
+		E895653E2BFF3521002527E9 /* InfoWater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoWater.swift; sourceTree = "<group>"; };
+		E89565432BFF3E98002527E9 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,14 +109,12 @@
 		3F291C142BECCFD20044D373 /* WaterReminder */ = {
 			isa = PBXGroup;
 			children = (
-				3F291C152BECCFD20044D373 /* AppDelegate.swift */,
-				3F291C172BECCFD20044D373 /* SceneDelegate.swift */,
-				3F291C192BECCFD20044D373 /* ViewController.swift */,
 				3F291C1B2BECCFD20044D373 /* Main.storyboard */,
-				3F291C212BECCFD40044D373 /* Assets.xcassets */,
-				3F291C232BECCFD40044D373 /* LaunchScreen.storyboard */,
-				3F291C262BECCFD40044D373 /* Info.plist */,
+				E89565402BFF3B5E002527E9 /* Systems */,
+				E895653D2BFF3479002527E9 /* Models */,
+				E89565382BFF2972002527E9 /* Controller */,
 				3F291C1E2BECCFD20044D373 /* WaterReminder.xcdatamodeld */,
+				E89565432BFF3E98002527E9 /* CollectionViewCell.swift */,
 			);
 			path = WaterReminder;
 			sourceTree = "<group>";
@@ -128,6 +134,36 @@
 				3F291C3B2BECCFD50044D373 /* WaterReminderUITestsLaunchTests.swift */,
 			);
 			path = WaterReminderUITests;
+			sourceTree = "<group>";
+		};
+		E89565382BFF2972002527E9 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				3F291C192BECCFD20044D373 /* ViewController.swift */,
+				E89565392BFF299D002527E9 /* AddController.swift */,
+				E895653B2BFF31EC002527E9 /* ChooseController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		E895653D2BFF3479002527E9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E895653E2BFF3521002527E9 /* InfoWater.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E89565402BFF3B5E002527E9 /* Systems */ = {
+			isa = PBXGroup;
+			children = (
+				3F291C152BECCFD20044D373 /* AppDelegate.swift */,
+				3F291C172BECCFD20044D373 /* SceneDelegate.swift */,
+				3F291C212BECCFD40044D373 /* Assets.xcassets */,
+				3F291C232BECCFD40044D373 /* LaunchScreen.storyboard */,
+				3F291C262BECCFD40044D373 /* Info.plist */,
+			);
+			name = Systems;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,7 +297,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E895653F2BFF3521002527E9 /* InfoWater.swift in Sources */,
+				E895653C2BFF31EC002527E9 /* ChooseController.swift in Sources */,
+				E89565442BFF3E98002527E9 /* CollectionViewCell.swift in Sources */,
 				3F291C1A2BECCFD20044D373 /* ViewController.swift in Sources */,
+				E895653A2BFF299D002527E9 /* AddController.swift in Sources */,
 				3F291C162BECCFD20044D373 /* AppDelegate.swift in Sources */,
 				3F291C182BECCFD20044D373 /* SceneDelegate.swift in Sources */,
 				3F291C202BECCFD20044D373 /* WaterReminder.xcdatamodeld in Sources */,
@@ -441,6 +481,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = D75GMK53J5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WaterReminder/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -468,6 +509,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = D75GMK53J5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WaterReminder/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
