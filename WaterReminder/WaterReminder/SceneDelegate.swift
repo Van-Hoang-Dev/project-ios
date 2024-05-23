@@ -39,7 +39,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 let setupController = storyboard.instantiateViewController(withIdentifier: "SetupController") as! EnterNameController
                     navigationController.viewControllers = [setupController]
                     window?.rootViewController = setupController
-                UserDefaults.standard.set(true, forKey: "isUsedFirstTime")
                 
             }
         window?.rootViewController = navigationController
