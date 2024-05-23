@@ -9,7 +9,6 @@ import UIKit
 
 class SelectGoalController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    
     // MARK: Properties
     @IBOutlet weak var selectGoalTable: UITableView!
     
