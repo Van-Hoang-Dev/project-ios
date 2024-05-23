@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Add Cup Controller-->
         <scene sceneID="rxw-QM-K3q">
             <objects>
-                <viewController id="9uk-hK-qCe" customClass="ViewController" customModule="WaterReminder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="9uk-hK-qCe" customClass="AddCupController" customModule="WaterReminder" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="swf-HY-9jx">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -129,7 +129,7 @@
         <!--Add-->
         <scene sceneID="Z7Y-D1-ckC">
             <objects>
-                <viewController id="UTT-x5-cBf" sceneMemberID="viewController">
+                <viewController id="UTT-x5-cBf" customClass="AddDrinkController" customModule="WaterReminder" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Yqz-A0-h50">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -224,7 +224,7 @@
         <!--Home-->
         <scene sceneID="2kE-S1-Z9b">
             <objects>
-                <viewController id="sW3-0K-pEe" sceneMemberID="viewController">
+                <viewController id="sW3-0K-pEe" customClass="HomeController" customModule="WaterReminder" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="OTW-LF-XC5">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -326,10 +326,10 @@
             </objects>
             <point key="canvasLocation" x="4700" y="-49.295774647887328"/>
         </scene>
-        <!--View Controller-->
+        <!--Set Gender Controller-->
         <scene sceneID="wMg-yv-y25">
             <objects>
-                <viewController id="SFg-EW-ZDN" sceneMemberID="viewController">
+                <viewController id="SFg-EW-ZDN" customClass="SetGenderController" customModule="WaterReminder" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6Xh-wd-fK9">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -352,6 +352,7 @@
                                     <color key="baseBackgroundColor" systemColor="systemGray3Color"/>
                                 </buttonConfiguration>
                                 <connections>
+                                    <action selector="btnMaleAc:" destination="SFg-EW-ZDN" eventType="touchUpInside" id="Vsl-rd-HCB"/>
                                     <segue destination="zHA-Ni-yv4" kind="show" id="Vg8-fn-JIS"/>
                                 </connections>
                             </button>
@@ -373,6 +374,7 @@
                                     <color key="baseBackgroundColor" systemColor="systemGray3Color"/>
                                 </buttonConfiguration>
                                 <connections>
+                                    <action selector="btnFemaleAc:" destination="SFg-EW-ZDN" eventType="touchUpInside" id="DoD-Sz-d9W"/>
                                     <segue destination="zHA-Ni-yv4" kind="show" id="w8m-dB-Y4Q"/>
                                 </connections>
                             </button>
@@ -400,10 +402,10 @@
             </objects>
             <point key="canvasLocation" x="2231.2977099236641" y="-10.563380281690142"/>
         </scene>
-        <!--View Controller-->
+        <!--Set Unit Controller-->
         <scene sceneID="BMv-Se-tHb">
             <objects>
-                <viewController id="zHA-Ni-yv4" sceneMemberID="viewController">
+                <viewController id="zHA-Ni-yv4" customClass="SetUnitController" customModule="WaterReminder" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="u9q-eY-WPh">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -426,6 +428,7 @@
                                     <color key="baseBackgroundColor" systemColor="systemGray3Color"/>
                                 </buttonConfiguration>
                                 <connections>
+                                    <action selector="btnMetType:" destination="zHA-Ni-yv4" eventType="touchUpInside" id="uEb-8T-y60"/>
                                     <segue destination="OUl-uU-eLf" kind="show" id="w7f-MU-AVf"/>
                                 </connections>
                             </button>
@@ -447,6 +450,7 @@
                                     <color key="baseBackgroundColor" systemColor="systemGray3Color"/>
                                 </buttonConfiguration>
                                 <connections>
+                                    <action selector="btnEnglishType:" destination="zHA-Ni-yv4" eventType="touchUpInside" id="g9t-cj-YoB"/>
                                     <segue destination="OUl-uU-eLf" kind="show" id="xJe-Bk-sZD"/>
                                 </connections>
                             </button>
@@ -516,6 +520,9 @@
                                             <constraint firstAttribute="height" constant="55" id="AfT-66-vdC"/>
                                             <constraint firstAttribute="width" constant="123" id="wEj-bL-G38"/>
                                         </constraints>
+                                        <connections>
+                                            <action selector="setWakeUp:" destination="jXd-ub-H7q" eventType="valueChanged" id="aJZ-hD-2Xu"/>
+                                        </connections>
                                     </datePicker>
                                 </subviews>
                             </stackView>
@@ -545,6 +552,9 @@
                                             <constraint firstAttribute="height" constant="55" id="MbM-ND-dYm"/>
                                             <constraint firstAttribute="width" constant="123" id="oBs-3C-BtY"/>
                                         </constraints>
+                                        <connections>
+                                            <action selector="setSleep:" destination="jXd-ub-H7q" eventType="valueChanged" id="hZn-yh-hJC"/>
+                                        </connections>
                                     </datePicker>
                                 </subviews>
                             </stackView>
@@ -602,10 +612,10 @@
             </objects>
             <point key="canvasLocation" x="2019" y="681"/>
         </scene>
-        <!--View Controller-->
+        <!--Enter Name Controller-->
         <scene sceneID="Hha-wY-jEJ">
             <objects>
-                <viewController id="cO1-R6-rgx" sceneMemberID="viewController">
+                <viewController id="cO1-R6-rgx" customClass="EnterNameController" customModule="WaterReminder" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wDr-hb-yPd">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -628,7 +638,7 @@
                                     <constraint firstAttribute="height" constant="55" id="ycT-Et-2uv"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="whK-eo-uHQ">
                                 <rect key="frame" x="20" y="713" width="353" height="55"/>
@@ -663,15 +673,19 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="56t-by-TIg"/>
+                    <connections>
+                        <outlet property="btnNext" destination="whK-eo-uHQ" id="jzj-Zo-mN3"/>
+                        <outlet property="username" destination="Lca-0L-3xf" id="5Y3-cn-LOo"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gZE-jd-1UP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="562.59541984732823" y="-32.394366197183103"/>
         </scene>
-        <!--View Controller-->
+        <!--Enter Weight Controller-->
         <scene sceneID="WGX-VI-vkf">
             <objects>
-                <viewController id="OUl-uU-eLf" sceneMemberID="viewController">
+                <viewController id="OUl-uU-eLf" customClass="EnterWeightController" customModule="WaterReminder" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Dgg-OL-qDY">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -710,7 +724,7 @@
                                     <constraint firstAttribute="height" constant="55" id="njS-a7-GgJ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done"/>
                             </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="l8w-Bq-pfZ"/>
@@ -732,6 +746,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="zXa-J0-09E"/>
+                    <connections>
+                        <outlet property="btnNext" destination="EKP-8D-q7K" id="utt-S7-Y7I"/>
+                        <outlet property="txtWeight" destination="GoE-6r-wDa" id="afW-yW-QGe"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b1w-cp-9ze" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -948,10 +966,10 @@
             </objects>
             <point key="canvasLocation" x="16" y="-1063"/>
         </scene>
-        <!--View Controller-->
+        <!--Total Water Controller-->
         <scene sceneID="QfH-KQ-STm">
             <objects>
-                <viewController id="nAp-ka-tTs" sceneMemberID="viewController">
+                <viewController id="nAp-ka-tTs" customClass="TotalWaterController" customModule="WaterReminder" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gaq-VX-Vtr">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
