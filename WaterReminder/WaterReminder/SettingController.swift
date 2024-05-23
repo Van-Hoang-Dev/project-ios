@@ -1,17 +1,16 @@
 //
-//  AddCupController.swift
+//  SettingController.swift
 //  WaterReminder
 //
-//  Created by khang on 23/05/2024.
+//  Created by Nguyen Van Hoang on 22/05/2024.
 //
 
 import UIKit
 
-class AddCupController: UIViewController {
-
+class SettingController: UIViewController {
+    
     
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
