@@ -17,8 +17,6 @@
 		0C388DB22BFEEFAF004955DB /* AddDrinkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C388DB12BFEEFAF004955DB /* AddDrinkController.swift */; };
 		0C388DB42BFEEFDA004955DB /* AddCupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C388DB32BFEEFDA004955DB /* AddCupController.swift */; };
 		0C388DB62BFEF081004955DB /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C388DB52BFEF081004955DB /* User.swift */; };
-		04A823C52BFCF7520006011D /* InfoUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A823C42BFCF7520006011D /* InfoUser.swift */; };
-		04A823C72BFCFC1B0006011D /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A823C62BFCFC1B0006011D /* Time.swift */; };
 		0C3D3C742BFDD23B00ABE79B /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D3C6A2BFDD23A00ABE79B /* FMDatabaseQueue.m */; };
 		0C3D3C752BFDD23B00ABE79B /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D3C6C2BFDD23B00ABE79B /* FMDatabasePool.m */; };
 		0C3D3C762BFDD23B00ABE79B /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D3C6D2BFDD23B00ABE79B /* FMResultSet.m */; };
@@ -68,8 +66,6 @@
 		0C388DB12BFEEFAF004955DB /* AddDrinkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDrinkController.swift; sourceTree = "<group>"; };
 		0C388DB32BFEEFDA004955DB /* AddCupController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCupController.swift; sourceTree = "<group>"; };
 		0C388DB52BFEF081004955DB /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		04A823C42BFCF7520006011D /* InfoUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoUser.swift; sourceTree = "<group>"; };
-		04A823C62BFCFC1B0006011D /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
 		0C3D3C682BFDD23900ABE79B /* WaterReminder-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WaterReminder-Bridging-Header.h"; sourceTree = "<group>"; };
 		0C3D3C692BFDD23A00ABE79B /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDB.h; path = WaterReminder/FMDB/src/FMDB.h; sourceTree = SOURCE_ROOT; };
 		0C3D3C6A2BFDD23A00ABE79B /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseQueue.m; path = WaterReminder/FMDB/src/FMDatabaseQueue.m; sourceTree = SOURCE_ROOT; };
@@ -257,8 +253,6 @@
 				3F291C1B2BECCFD20044D373 /* Main.storyboard */,
 				3F291C1E2BECCFD20044D373 /* WaterReminder.xcdatamodeld */,
 				04A823C12BFCF6B40006011D /* Systems */,
-				318698E92BFE250B00D3E679 /* SelectGoalCell.swift */,
-				318698EB2BFE269700D3E679 /* SelectGoalController.swift */,
 			);
 			path = WaterReminder;
 			sourceTree = "<group>";
@@ -417,8 +411,6 @@
 				0C3D3C742BFDD23B00ABE79B /* FMDatabaseQueue.m in Sources */,
 				0C388DB42BFEEFDA004955DB /* AddCupController.swift in Sources */,
 				0C388DB22BFEEFAF004955DB /* AddDrinkController.swift in Sources */,
-				04A823C72BFCFC1B0006011D /* Time.swift in Sources */,
-				04A823C52BFCF7520006011D /* InfoUser.swift in Sources */,
 				0C3D3C782BFDD23B00ABE79B /* FMDatabase.m in Sources */,
 				3F291C1A2BECCFD20044D373 /* ViewController.swift in Sources */,
 				0C3D3C762BFDD23B00ABE79B /* FMResultSet.m in Sources */,
