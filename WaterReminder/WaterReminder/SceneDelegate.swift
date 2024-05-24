@@ -2,7 +2,7 @@
 //  SceneDelegate.swift
 //  WaterReminder
 //
-//  Created by nguyenthanhnhan on 20/02/1403 AP.
+//  Created by nguyenvanhoang on 20/02/1403 AP.
 //
 
 import UIKit
@@ -16,7 +16,35 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        
+        window = UIWindow(windowScene: windowScene)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let navigationController = storyboard.instantiateViewController(withIdentifier: "NavigationController") as! UINavigationController
+            //Kiem tra app da vao lan dau tien hay chua
+            let isUsedFirstTime = UserDefaults.standard.bool(forKey: "isUsedFirstTime")
+            
+            print("Gia tri: \(isUsedFirstTime)")
+
+            //Chuyen sang man hinh chinh cua ung dung
+            if isUsedFirstTime {
+                print("Man hinh welcome da chay roi")
+                let homeController = storyboard.instantiateViewController(withIdentifier: "HomeController") as! HomeController
+                    navigationController.viewControllers = [homeController]
+                    window?.rootViewController = homeController
+                
+            }
+            else {
+                print("Co gi do sai sai")
+                let setupController = storyboard.instantiateViewController(withIdentifier: "SetupController") as! EnterNameController
+                    navigationController.viewControllers = [setupController]
+                    window?.rootViewController = setupController
+                UserDefaults.standard.set(true, forKey: "isUsedFirstTime")
+                
+            }
+        window?.rootViewController = navigationController
+        
+        window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

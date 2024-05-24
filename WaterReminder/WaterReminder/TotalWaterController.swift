@@ -9,16 +9,27 @@ import UIKit
 
 class TotalWaterController: UIViewController {
     
+    
     var user:User?
-    //khoi tao doi tuong database
-    private let dao = Database()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         print("Totle water \(user!  .toString())")
         
+    }
+    
+    
+    @IBAction func btnSave(_ sender: UIButton) {
+        // Khoi tao doi tuong database
+        let dao = Database()
+        //Insert user vso database
         let _ = dao.insertUser(user: user!)
+        
+        // Danh dau lan dau tien vao app
+        UserDefaults.standard.set(true, forKey: "isUsedFirstTime")
+        
     }
     
 
