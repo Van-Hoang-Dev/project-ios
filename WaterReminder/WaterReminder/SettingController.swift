@@ -17,6 +17,7 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     
     @IBOutlet weak var btnPickerTargetDrink: UIButton!
     
+    var valueLabel: UILabel!
     
     var genders = [
         "Male", "Female"
@@ -46,8 +47,9 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         }
     }
     
-    //Sua gioi tinh
+    // MARK: Gender pop up picker
     @IBAction func genderPopUpPicker(_ sender: UIButton) {
+        numberOfComponents = 1
         checkTypePicker = 1
         // Khởi tạo 1 viewComtroller mới
         let vc = UIViewController()
@@ -83,6 +85,7 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
             self.selectdRow = genderPicker.selectedRow(inComponent: 0)
             let selected = Array(self.genders)[self.selectdRow]
             let gender = selected
+            self.btnPickerGender.setTitle(gender, for: .normal)
             print("Giới Tính: \(gender)")
         }))
         
@@ -93,7 +96,7 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         
     }
     
-    
+    // MARK: Weight pop up picker
     @IBAction func weightPopUpPicker(_ sender: UIButton) {
         numberOfComponents = 2
         checkTypePicker = 2
@@ -108,6 +111,7 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         weightPicker.selectRow(selectedRowNumDecimal, inComponent: 1, animated: false)
         
         vc.view.addSubview(weightPicker)
+        weightPicker.translatesAutoresizingMaskIntoConstraints = false
         weightPicker.centerXAnchor.constraint(equalTo: vc.view.centerXAnchor).isActive = true
         weightPicker.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor).isActive = true
         
@@ -123,7 +127,9 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
             self.selectedRowNum = weightPicker.selectedRow(inComponent: 0)
             self.selectedRowNumDecimal = weightPicker.selectedRow(inComponent: 1)
             
-            print("Weight: \(self.selectedRowNum)\(self.selectedRowNumDecimal)")
+            let weight = String(self.integerArray[self.selectedRowNum]) + self.decimalArray[self.selectedRowNumDecimal]
+            self.btnPickerWeight.setTitle(weight + " Kg", for: .normal)
+            print("Weight: \(weight) kg")
         }))
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -134,18 +140,72 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         
     }
     
+    // MARK: target drink picker
     @IBAction func targetDrinkPopUpPicker(_ sender: UIButton) {
+        let vc = UIViewController()
+        vc.preferredContentSize = CGSize(width: screenWidth, height: screenHeight)
+        let slider = UISlider(frame: CGRect(x: 0, y: 0 , width: screenWidth, height: screenHeight))
+        slider.minimumValue = 1000
+        slider.maximumValue = 3000
+        slider.value = 1500
+        slider.isContinuous = true
+        slider.addTarget(self, action: #selector(self.targetDrinkChangeValue(_:)), for: .valueChanged)
+        
+        vc.view.addSubview(slider)
+
+        slider.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            slider.leadingAnchor.constraint(equalTo: vc.view.leadingAnchor, constant: 16), // Adjust leading space as needed
+            slider.trailingAnchor.constraint(equalTo: vc.view.trailingAnchor, constant: -16), // Adjust trailing space as needed
+            slider.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor)
+        ])
+        
+        // Initialize label to show slider value
+        valueLabel = UILabel()
+        vc.view.addSubview(valueLabel)
+        valueLabel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        valueLabel.text = "\(slider.value)"
+        valueLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        // Add constraints for the label
+        NSLayoutConstraint.activate([
+            valueLabel.centerXAnchor.constraint(equalTo: vc.view.centerXAnchor),
+            valueLabel.bottomAnchor.constraint(equalTo: slider.topAnchor, constant: -80)
+        ])
+        
+        //Khoi tao alert
+        let alert = UIAlertController(title: "Select Target", message: "", preferredStyle: .actionSheet)
+        alert.popoverPresentationController?.sourceView = btnPickerWeight
+        alert.popoverPresentationController?.sourceRect = btnPickerWeight.bounds
+        
+        alert.setValue(vc, forKey: "contentViewController")
+        
+        // Thêm các action vào alert
+        alert.addAction(UIAlertAction(title: "Select", style: .default, handler: { (action) in
+            self.btnPickerTargetDrink.setTitle(self.valueLabel.text!, for: .normal)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        // Hiển thị alert
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    @objc func targetDrinkChangeValue(_ sender: UISlider){
+        let value = Int(sender.value)
+        self.valueLabel.text = "\(value)"
+        print("Target drink: \(value)")
     }
     
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 30))
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        label.textAlignment = .center
         label.sizeToFit()
         
         if checkTypePicker == 1 {
             label.text = genders[row]
-            print("Gender picker \(genders[row])")
         }
         else if checkTypePicker == 2{
             if component == 0 {
