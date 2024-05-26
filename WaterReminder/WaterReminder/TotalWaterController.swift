@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 class TotalWaterController: UIViewController {
     
@@ -15,7 +16,19 @@ class TotalWaterController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        //Yeu cao cap quyen thong bao cho ung dung
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.requestAuthorization(options: [.alert, .sound]) { granted, error in
+            if granted {
+                UserDefaults.standard.set(true,forKey: "notificationEnabled")
+                print("Quyen gui thong bao da duoc cap")
+            } else if let error = error {
+                print("Lỗi khi yêu cầu quyền gửi thông báo: \(error.localizedDescription)")
+            } else {
+                print("Quyền gửi thông báo không được cấp.")
+            }
+        }
         print("Totle water \(user!  .toString())")
         
     }
@@ -27,7 +40,7 @@ class TotalWaterController: UIViewController {
         //Insert user vso database
         let _ = dao.insertUser(user: user!)
         
-        // Danh dau lan dau tien vao app
+        // Danh dau lan dau tien vao ap
         UserDefaults.standard.set(true, forKey: "isUsedFirstTime")
         
     }
