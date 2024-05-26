@@ -17,16 +17,19 @@ class AddDrinkController: UIViewController, UICollectionViewDelegate, UICollecti
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        cups.append(Cup(image: "cup1", amount: 200))
-        cups.append(Cup(image: "cup1", amount: 300))
-        cups.append(Cup(image: "cup1", amount: 250))
-        
-        cups.append(Cup(image: "cup1", amount: 200))
-        cups.append(Cup(image: "cup1", amount: 300))
-        cups.append(Cup(image: "cup1", amount: 250))
+//        cups.append(Cup(image: "cup1", amount: 200))
+//        cups.append(Cup(image: "cup1", amount: 300))
+//        cups.append(Cup(image: "cup1", amount: 250))
+//        
+//        cups.append(Cup(image: "cup1", amount: 200))
+//        cups.append(Cup(image: "cup1", amount: 300))
+//        cups.append(Cup(image: "cup1", amount: 250))
         
         cupCollection.delegate = self
         cupCollection.dataSource = self
+        
+        // Reload data để hiển thị danh sách cốc đã lưu
+        cupCollection.reloadData()
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -50,14 +53,5 @@ class AddDrinkController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

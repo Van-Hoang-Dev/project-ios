@@ -160,7 +160,86 @@ class Database {
         return OK
     }
 
-    
+    //1.Thêm cup vào CSDL
+    func insertCup(cup:Cup)->Bool{
+        var OK = false
+        if open(){
+            if database!.tableExists(CUP_TABLE_NAME){
+                let sql = "INSERT INTO \(CUP_TABLE_NAME) (\(CUP_IMAGE), \(CUP_AMOUNT)) VALUES (?,?)"
+                // Lưu giá trị vào CSDL
+                if database!.executeUpdate(sql, withArgumentsIn: [cup.image, cup.amount]){
+                    os_log("Đã thêm cup thành công.")
+                    OK = true
+                    close()
+                }
+                else{
+                    os_log("Đã thêm cup thất bại!!!")
+                }
+            }
+        }
+        return OK
+    }
+    // 2. Đọc tất cả cups
+        func readCup() -> [Cup]? {
+            var cups = [Cup]()
+            if open() {
+                if database!.tableExists(CUP_TABLE_NAME) {
+                    let sql = "SELECT * FROM \(CUP_TABLE_NAME)"
+                    if let results = database!.executeQuery(sql, withArgumentsIn: []) {
+                        while results.next() {
+                            let id = Int(results.int(forColumn: CUP_ID))
+                            let image = results.string(forColumn: CUP_IMAGE) ?? ""
+                            let amount = results.double(forColumn: CUP_AMOUNT)
+                            let cup = Cup(id: id, image: image, amount: amount)
+                            cups.append(cup)
+                        }
+                        close()
+                        return cups
+                    } else {
+                        os_log("Lấy dữ liệu cups thất bại!!!")
+                    }
+                }
+                close()
+            }
+            return nil
+        }
+
+        // 3. Xóa cup theo id
+        func deleteCup(cupId: Int) -> Bool {
+            var OK = false
+            if open() {
+                if database!.tableExists(CUP_TABLE_NAME) {
+                    let sql = "DELETE FROM \(CUP_TABLE_NAME) WHERE \(CUP_ID) = ?"
+                    if database!.executeUpdate(sql, withArgumentsIn: [cupId]) {
+                        os_log("Đã xoá cup thành công.")
+                        OK = true
+                        close()
+                    } else {
+                        os_log("Đã xoá cup thất bại!!!")
+                    }
+                }
+            }
+            return OK
+        }
+
+        // 4. Cập nhật cup theo id
+        func updateCup(cupId: Int, newCup: Cup) -> Bool {
+            var OK = false
+            if open() {
+                if database!.tableExists(CUP_TABLE_NAME) {
+                    let sql = "UPDATE \(CUP_TABLE_NAME) SET \(CUP_IMAGE) = ?, \(CUP_AMOUNT) = ? WHERE \(CUP_ID) = ?"
+                    if database!.executeUpdate(sql, withArgumentsIn: [newCup.image, newCup.amount, cupId]) {
+                        os_log("Cập nhật cup thành công.")
+                        OK = true
+                        close()
+                    } else {
+                        os_log("Cập nhật cup thất bại!!!")
+                    }
+                }
+                close()
+            }
+            return OK
+        }
     
     
     
