@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 class TotalWaterController: UIViewController {
     
@@ -29,6 +30,19 @@ class TotalWaterController: UIViewController {
             strUnit = "fl oz"
         }
         lblTotalWater.text = "\(Int(totalWater.rounded())) \(strUnit)"
+        
+        //Yeu cao cap quyen thong bao cho ung dung
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.requestAuthorization(options: [.alert, .sound]) { granted, error in
+            if granted {
+                UserDefaults.standard.set(true,forKey: "notificationEnabled")
+                print("Quyen gui thong bao da duoc cap")
+            } else if let error = error {
+                print("Lỗi khi yêu cầu quyền gửi thông báo: \(error.localizedDescription)")
+            } else {
+                print("Quyền gửi thông báo không được cấp.")
+            }
+        }
         print("Totle water \(user!  .toString())")
         
     }
@@ -40,8 +54,7 @@ class TotalWaterController: UIViewController {
         UserDefaultsKey.setValue(totalWater, .USER_TOTAL_WATER)
         // Danh dau lan dau tien vao app
         UserDefaultsKey.setValue(true, .USER_ISUSEDFIRSTTIME)
-        
-        
+                
     }
     
 
