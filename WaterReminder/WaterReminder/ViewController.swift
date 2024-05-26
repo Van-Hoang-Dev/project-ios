@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  WaterReminder
 //
-//  Created by nguyenthanhnhan on 20/02/1403 AP.
+//  Created by nNguyen Van Hoang on 20/02/1403 AP.
 //
 
 import UIKit
