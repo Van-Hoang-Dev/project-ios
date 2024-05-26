@@ -22,7 +22,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let navigationController = storyboard.instantiateViewController(withIdentifier: "NavigationController") as! UINavigationController
             //Kiem tra app da vao lan dau tien hay chua
-            let isUsedFirstTime = UserDefaults.standard.bool(forKey: "isUsedFirstTime")
+//            let isUsedFirstTime = UserDefaults.standard.bool(forKey: "isUsedFirstTime")
+            //cach cua khang
+        let isUsedFirstTime = UserDefaultsKey.isUsedFirstTime()
             
             print("Gia tri: \(isUsedFirstTime)")
 

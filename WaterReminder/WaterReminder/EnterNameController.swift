@@ -36,9 +36,10 @@ class EnterNameController: UIViewController, UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if let username = username.text {
-            user.name = username
-            print("user.name =\(user.name)")
-            print("username =\(username)")
+            UserDefaultsKey.setValue(username, .USER_NAME)
+//            user.name = username
+//            print("user.name =\(user.name)")
+//            print("username =\(username)")
         }
     }
     @objc func textFieldDidChange(_ textField: UITextField){

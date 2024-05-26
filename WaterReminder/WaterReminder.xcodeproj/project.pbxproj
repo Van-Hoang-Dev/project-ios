@@ -24,6 +24,7 @@
 		0C3D3C782BFDD23B00ABE79B /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D3C702BFDD23B00ABE79B /* FMDatabase.m */; };
 		0C3D3C7C2BFDD2CD00ABE79B /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D3C7B2BFDD2CD00ABE79B /* Database.swift */; };
 		0C3D3C7F2BFDD3D000ABE79B /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C3D3C7E2BFDD3D000ABE79B /* libsqlite3.0.tbd */; };
+		0C6F14462C02322A0021872E /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6F14452C02322A0021872E /* UserDefaultsKeys.swift */; };
 		318698EA2BFE250B00D3E679 /* SelectGoalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318698E92BFE250B00D3E679 /* SelectGoalCell.swift */; };
 		318698EC2BFE269700D3E679 /* SelectGoalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318698EB2BFE269700D3E679 /* SelectGoalController.swift */; };
 		31DCC6682BFEBDA200EC70CD /* DrinkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DCC6672BFEBDA200EC70CD /* DrinkCell.swift */; };
@@ -85,6 +86,7 @@
 		0C3D3C732BFDD23B00ABE79B /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMResultSet.h; path = WaterReminder/FMDB/src/FMResultSet.h; sourceTree = SOURCE_ROOT; };
 		0C3D3C7B2BFDD2CD00ABE79B /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		0C3D3C7E2BFDD3D000ABE79B /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		0C6F14452C02322A0021872E /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
 		318698E92BFE250B00D3E679 /* SelectGoalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGoalCell.swift; sourceTree = "<group>"; };
 		318698EB2BFE269700D3E679 /* SelectGoalController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGoalController.swift; sourceTree = "<group>"; };
 		31DCC6672BFEBDA200EC70CD /* DrinkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkCell.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				0C388DB52BFEF081004955DB /* User.swift */,
 				31DCC6692BFEC0C800EC70CD /* Drink.swift */,
 				31DCC66B2BFEC22100EC70CD /* Cup.swift */,
+				0C6F14452C02322A0021872E /* UserDefaultsKeys.swift */,
 			);
 			name = models;
 			sourceTree = "<group>";
@@ -429,6 +432,7 @@
 				0C3D3C742BFDD23B00ABE79B /* FMDatabaseQueue.m in Sources */,
 				0C388DB42BFEEFDA004955DB /* AddCupController.swift in Sources */,
 				0C388DB22BFEEFAF004955DB /* AddDrinkController.swift in Sources */,
+				0C6F14462C02322A0021872E /* UserDefaultsKeys.swift in Sources */,
 				0C3D3C782BFDD23B00ABE79B /* FMDatabase.m in Sources */,
 				3F291C1A2BECCFD20044D373 /* ViewController.swift in Sources */,
 				0C3D3C762BFDD23B00ABE79B /* FMResultSet.m in Sources */,

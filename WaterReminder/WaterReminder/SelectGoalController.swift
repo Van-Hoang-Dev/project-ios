@@ -30,6 +30,7 @@ class SelectGoalController: UIViewController, UITableViewDataSource, UITableView
         fatalError("Khong the return cell!")
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        UserDefaultsKey.setValue(goals[indexPath.row], .USER_GOAL)
         user?.goal = goals[indexPath.row]
         print("selectGoal: \(user!.goal)")
     }

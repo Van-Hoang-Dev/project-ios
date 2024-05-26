@@ -21,12 +21,14 @@ class SetUnitController: UIViewController {
     
     @IBAction func btnMetType(_ sender: UIButton) {
         // 1 = ml ,m
+        UserDefaultsKey.setValue(1, .USER_UNIT)
         user?.unit = 1
     }
     
     
     @IBAction func btnEnglishType(_ sender: UIButton) {
         // 2 = oz, ft
+        UserDefaultsKey.setValue(2, .USER_UNIT)
         user?.unit = 2
     }
     

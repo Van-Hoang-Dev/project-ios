@@ -25,10 +25,12 @@ class SetGenderController: UIViewController {
     
 
     @IBAction func btnMaleAc(_ sender: UIButton) {
-        user?.gender = 1
+        UserDefaultsKey.setValue(0, .USER_GENDER)
+        user?.gender = 0
     }
     
     @IBAction func btnFemaleAc(_ sender: UIButton) {
+        UserDefaultsKey.setValue(1, .USER_GENDER)
         user?.gender = 1
     }
     

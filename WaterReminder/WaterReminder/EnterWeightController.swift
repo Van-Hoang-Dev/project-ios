@@ -36,10 +36,11 @@ class EnterWeightController: UIViewController, UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         if let weightString = txtWeight.text, let weight = Double(weightString) {
             user?.weight = weight
+            UserDefaultsKey.setValue(weight, .USER_WEIGHT)
             print("user.weight =\(user!.weight)")
         }
         else {
-            print("Không thể chuyển đổi \(txtWeight.text) thành kiểu Double.")
+            print("Không thể chuyển đổi \(String(describing: txtWeight.text)) thành kiểu Double.")
         }
     }
     @objc func textFieldDidChange(_ textField: UITextField){
