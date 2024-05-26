@@ -63,7 +63,7 @@ class AddCupController: UIViewController, UICollectionViewDelegate, UICollection
                 if db.insertCup(cup: cup) {
                     let alert = UIAlertController(title: "Thành công", message: "Đã lưu dữ liệu thành công.", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
-                        self.performSegue(withIdentifier: "showDrinkData", sender: self)
+                        self.dismiss(animated: true)
                     }))
                     self.present(alert, animated: true, completion: nil)
                 } else {
@@ -72,7 +72,7 @@ class AddCupController: UIViewController, UICollectionViewDelegate, UICollection
                     self.present(alert, animated: true, completion: nil)
                 }
             }
-            
+            /*
             override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
                 if segue.identifier == "showDrinkData" {
                     if let destinationVC = segue.destination as? AddDrinkController {
@@ -80,5 +80,5 @@ class AddCupController: UIViewController, UICollectionViewDelegate, UICollection
                     }
                 }
             }
-
+            */
 }

@@ -123,7 +123,7 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let reuseCell = "DrinkCell"
+        let reuseCell = "DrinkCollectionCell"
         let drink = drinks[indexPath.row]
         if let cell = DrinkCollection.dequeueReusableCell(withReuseIdentifier: reuseCell, for: indexPath) as? DrinkCollectionCell {
             cell.image.image = UIImage(named: drink.image)
