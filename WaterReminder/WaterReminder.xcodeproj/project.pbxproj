@@ -25,6 +25,9 @@
 		0C3D3C7C2BFDD2CD00ABE79B /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D3C7B2BFDD2CD00ABE79B /* Database.swift */; };
 		0C3D3C7F2BFDD3D000ABE79B /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C3D3C7E2BFDD3D000ABE79B /* libsqlite3.0.tbd */; };
 		0C6F14462C02322A0021872E /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6F14452C02322A0021872E /* UserDefaultsKeys.swift */; };
+		0C93B2082C02F8C90043EEF1 /* DrinkHistoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C93B2072C02F8C90043EEF1 /* DrinkHistoryController.swift */; };
+		0C93B20A2C02FA2A0043EEF1 /* DayCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C93B2092C02FA2A0043EEF1 /* DayCollectionCell.swift */; };
+		0C93B20C2C0305250043EEF1 /* CalendarHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C93B20B2C0305250043EEF1 /* CalendarHelper.swift */; };
 		318698EA2BFE250B00D3E679 /* SelectGoalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318698E92BFE250B00D3E679 /* SelectGoalCell.swift */; };
 		318698EC2BFE269700D3E679 /* SelectGoalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318698EB2BFE269700D3E679 /* SelectGoalController.swift */; };
 		31DCC6682BFEBDA200EC70CD /* DrinkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DCC6672BFEBDA200EC70CD /* DrinkCell.swift */; };
@@ -87,6 +90,9 @@
 		0C3D3C7B2BFDD2CD00ABE79B /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		0C3D3C7E2BFDD3D000ABE79B /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		0C6F14452C02322A0021872E /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
+		0C93B2072C02F8C90043EEF1 /* DrinkHistoryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkHistoryController.swift; sourceTree = "<group>"; };
+		0C93B2092C02FA2A0043EEF1 /* DayCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCollectionCell.swift; sourceTree = "<group>"; };
+		0C93B20B2C0305250043EEF1 /* CalendarHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHelper.swift; sourceTree = "<group>"; };
 		318698E92BFE250B00D3E679 /* SelectGoalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGoalCell.swift; sourceTree = "<group>"; };
 		318698EB2BFE269700D3E679 /* SelectGoalController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGoalController.swift; sourceTree = "<group>"; };
 		31DCC6672BFEBDA200EC70CD /* DrinkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkCell.swift; sourceTree = "<group>"; };
@@ -163,6 +169,7 @@
 				0C388DB12BFEEFAF004955DB /* AddDrinkController.swift */,
 				0C388DB32BFEEFDA004955DB /* AddCupController.swift */,
 				31DCC66F2BFECC4700EC70CD /* SettingController.swift */,
+				0C93B2072C02F8C90043EEF1 /* DrinkHistoryController.swift */,
 			);
 			name = controllers;
 			sourceTree = "<group>";
@@ -174,6 +181,7 @@
 				31DCC6692BFEC0C800EC70CD /* Drink.swift */,
 				31DCC66B2BFEC22100EC70CD /* Cup.swift */,
 				0C6F14452C02322A0021872E /* UserDefaultsKeys.swift */,
+				0C93B20B2C0305250043EEF1 /* CalendarHelper.swift */,
 			);
 			name = models;
 			sourceTree = "<group>";
@@ -236,6 +244,7 @@
 				318698E92BFE250B00D3E679 /* SelectGoalCell.swift */,
 				31DCC6672BFEBDA200EC70CD /* DrinkCell.swift */,
 				31DCC66D2BFEC4D100EC70CD /* CupCollectionCell.swift */,
+				0C93B2092C02FA2A0043EEF1 /* DayCollectionCell.swift */,
 			);
 			name = controls;
 			sourceTree = "<group>";
@@ -440,9 +449,12 @@
 				0C388DA62BFEEC67004955DB /* EnterNameController.swift in Sources */,
 				3F291C162BECCFD20044D373 /* AppDelegate.swift in Sources */,
 				318698EA2BFE250B00D3E679 /* SelectGoalCell.swift in Sources */,
+				0C93B20A2C02FA2A0043EEF1 /* DayCollectionCell.swift in Sources */,
 				0C3D3C772BFDD23B00ABE79B /* FMDatabaseAdditions.m in Sources */,
 				3F291C182BECCFD20044D373 /* SceneDelegate.swift in Sources */,
+				0C93B2082C02F8C90043EEF1 /* DrinkHistoryController.swift in Sources */,
 				318698EC2BFE269700D3E679 /* SelectGoalController.swift in Sources */,
+				0C93B20C2C0305250043EEF1 /* CalendarHelper.swift in Sources */,
 				31DCC66C2BFEC22100EC70CD /* Cup.swift in Sources */,
 				3F291C202BECCFD20044D373 /* WaterReminder.xcdatamodeld in Sources */,
 				0C388DAA2BFEEDDB004955DB /* SetUnitController.swift in Sources */,
