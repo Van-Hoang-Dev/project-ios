@@ -9,10 +9,12 @@ import Foundation
 
 class Cup {
     //MARK: FIELDS
+    var id:Int
     var image:String
     var amount:Double
     
-    init(image: String, amount: Double) {
+    init(id: Int = -1 ,image: String, amount: Double) {
+        self.id = id
         self.image = image
         self.amount = amount
     }

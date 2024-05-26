@@ -8,8 +8,12 @@
 import UIKit
 import UserNotifications
 
-class HomeController: UIViewController {
+class HomeController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
+     @IBOutlet weak var DrinkCollection: UICollectionView!
+    
+    var drinks = [Drink]()
+
     let notificationCenter = UNUserNotificationCenter.current()
     //Chuoi thoi gian
     let morningString = "19:35"
@@ -17,6 +21,12 @@ class HomeController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        drinks.append(Drink(image: "cup1", amount: 200, date: "7:00"))
+        drinks.append(Drink(image: "cup1", amount: 300, date: "8:00"))
+        drinks.append(Drink(image: "cup1", amount: 100, date: "9:00"))
+        
+        DrinkCollection.delegate = self
+        DrinkCollection.dataSource = self
         // Kiểm tra quyền thông báo và tự động đặt thông báo nếu đã được cấp quyền
         checkAndScheduleNotifications()
         
@@ -107,16 +117,25 @@ class HomeController: UIViewController {
             }
         }
     }
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        drinks.count
+    }
     
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let reuseCell = "DrinkCell"
+        let drink = drinks[indexPath.row]
+        if let cell = DrinkCollection.dequeueReusableCell(withReuseIdentifier: reuseCell, for: indexPath) as? DrinkCollectionCell {
+            cell.image.image = UIImage(named: drink.image)
+            let formattedString = String(format: "%.0f", drink.amount) + " ml"
+            cell.amout.text = formattedString
+            cell.time.text = drink.date
+            return cell
+        }
+        fatalError("Khong the tao cell!")
+    }
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        CGSize(width: collectionView.frame.size.width / 4, height: 128)
+    }
 }

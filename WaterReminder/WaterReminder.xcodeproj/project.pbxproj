@@ -45,6 +45,8 @@
 		3F291C302BECCFD50044D373 /* WaterReminderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F291C2F2BECCFD50044D373 /* WaterReminderTests.swift */; };
 		3F291C3A2BECCFD50044D373 /* WaterReminderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F291C392BECCFD50044D373 /* WaterReminderUITests.swift */; };
 		3F291C3C2BECCFD50044D373 /* WaterReminderUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F291C3B2BECCFD50044D373 /* WaterReminderUITestsLaunchTests.swift */; };
+		E8D9F1F82C01D497009E55CD /* ImageCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D9F1F72C01D497009E55CD /* ImageCollectionCell.swift */; };
+		E8D9F1FA2C01D5AB009E55CD /* DrinkCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D9F1F92C01D5AB009E55CD /* DrinkCollectionCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +116,8 @@
 		3F291C352BECCFD50044D373 /* WaterReminderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WaterReminderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F291C392BECCFD50044D373 /* WaterReminderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterReminderUITests.swift; sourceTree = "<group>"; };
 		3F291C3B2BECCFD50044D373 /* WaterReminderUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterReminderUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E8D9F1F72C01D497009E55CD /* ImageCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionCell.swift; sourceTree = "<group>"; };
+		E8D9F1F92C01D5AB009E55CD /* DrinkCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkCollectionCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -245,6 +249,8 @@
 				31DCC6672BFEBDA200EC70CD /* DrinkCell.swift */,
 				31DCC66D2BFEC4D100EC70CD /* CupCollectionCell.swift */,
 				0C93B2092C02FA2A0043EEF1 /* DayCollectionCell.swift */,
+				E8D9F1F72C01D497009E55CD /* ImageCollectionCell.swift */,
+				E8D9F1F92C01D5AB009E55CD /* DrinkCollectionCell.swift */,
 			);
 			name = controls;
 			sourceTree = "<group>";
@@ -440,6 +446,8 @@
 				31DCC6682BFEBDA200EC70CD /* DrinkCell.swift in Sources */,
 				0C3D3C742BFDD23B00ABE79B /* FMDatabaseQueue.m in Sources */,
 				0C388DB42BFEEFDA004955DB /* AddCupController.swift in Sources */,
+				E8D9F1FA2C01D5AB009E55CD /* DrinkCollectionCell.swift in Sources */,
+				E8D9F1F82C01D497009E55CD /* ImageCollectionCell.swift in Sources */,
 				0C388DB22BFEEFAF004955DB /* AddDrinkController.swift in Sources */,
 				0C6F14462C02322A0021872E /* UserDefaultsKeys.swift in Sources */,
 				0C3D3C782BFDD23B00ABE79B /* FMDatabase.m in Sources */,
