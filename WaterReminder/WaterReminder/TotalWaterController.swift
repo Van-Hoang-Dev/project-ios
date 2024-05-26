@@ -14,7 +14,7 @@ class TotalWaterController: UIViewController {
     var user:User?
     var totalWater:Double = 0.0
     var strUnit = ""
-    //kiem tra don vi nguoi dung su dung
+    //kiem tra don vi su dung
     let KG_TO_LB = 0.4535923745
     let ML_TO_FLOZ = 28.41
     override func viewDidLoad() {
