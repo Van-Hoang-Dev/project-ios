@@ -9,13 +9,15 @@ import Foundation
 
 class Drink {
     // MARK: Fields
-    var image:String
-    var amount:Double
+    var id:Int
+    var cup:Cup
+    var time:String
     var date:String
     
-    init(image: String, amount: Double, date: String) {
-        self.image = image
-        self.amount = amount
+    init(id: Int = -1 , cup:Cup, time:String ,date: String) {
+        self.id = id
+        self.cup = cup
+        self.time = time
         self.date = date
     }
 }

@@ -22,7 +22,7 @@ class TotalWaterController: UIViewController {
         super.viewDidLoad()
         let unit = UserDefaultsKey.getUnit()
         let weight = UserDefaultsKey.getWeight()
-        if(unit == 1){
+        if(unit == 0){
             totalWater = ((weight / KG_TO_LB) / 2) * ML_TO_FLOZ
             strUnit = "ml"
         }else{

@@ -19,11 +19,18 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     
     @IBOutlet weak var btnPickerDuation: UIButton!
     
+    @IBOutlet weak var btnPickerUnit: UIButton!
+    
+    @IBOutlet weak var wakeUpTime: UIDatePicker!
+    
+    @IBOutlet weak var sleepTime: UIDatePicker!
+    
     var valueLabel: UILabel!
     
     var genders = [
         "Male", "Female"
     ]
+    var units = ["kg and ml","lb and oz"];
     let integerArray = Array(20...200)
     var decimalArray = [".0", ".1", ".2", ".3", ".4", ".5", ".6", ".7", ".8", ".9"]
     let durationTimeOptions = [5, 10, 15, 30, 60, 120]
@@ -38,6 +45,9 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     let WEIGHT_PICKER = "weightPicker"
     let GENDER_PICKER = "genderPicker"
     let DURATION_TIME_PICKER = "durationTimePicker"
+    let Unit_PICKER = "unitPicker"
+    let KG_TO_LB = 0.4535923745
+    let ML_TO_FLOZ = 28.41
     
     
     override func viewDidLoad() {
@@ -45,6 +55,39 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         // Load trạng thái của công tắc thông báo
         let notificationEnabled = UserDefaults.standard.bool(forKey: "notificationEnabled")
         notificationSwitch.isOn = notificationEnabled
+        
+        if UserDefaultsKey.getUnit() == 0 {
+            btnPickerUnit.setTitle(units[0], for: .normal)
+            btnPickerWeight.setTitle(String(Int(UserDefaultsKey.getWeight())) + " kg", for: .normal)
+            btnPickerTargetDrink.setTitle(String(Int(UserDefaultsKey.getTotalWater().rounded())) + " ml", for: .normal)
+        }
+        else{
+            btnPickerUnit.setTitle(units[1], for: .normal)
+            btnPickerWeight.setTitle(String(Int(UserDefaultsKey.getWeight())) + " lb", for: .normal)
+            btnPickerTargetDrink.setTitle(String(Int(UserDefaultsKey.getTotalWater().rounded())) + " oz", for: .normal)
+        }
+        
+        if UserDefaultsKey.getGender() == 0 {
+            btnPickerGender.setTitle(genders[0], for: .normal)
+        }
+        else{
+            btnPickerGender.setTitle(genders[1], for: .normal)
+        }
+        
+        // Chuỗi thời gian đầu vào
+        if let strWakeUpTime = UserDefaultsKey.getWakeUpTime(),
+           let strSleepTime = UserDefaultsKey.getSleepTime() {
+            // Định dạng DateFormatter để chuyển đổi chuỗi thành Date
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "H:mm"
+            // Chuyển đổi chuỗi thành đối tượng Date
+            if let wakeupDate = dateFormatter.date(from: strWakeUpTime),
+                let sleepDate = dateFormatter.date(from: strSleepTime) {
+                wakeUpTime.setDate(wakeupDate, animated: true)
+                sleepTime.setDate(sleepDate, animated: true)
+            }
+        }
+        
     }
     
     
@@ -95,11 +138,18 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         
         // Thêm các action vào alert
         alert.addAction(UIAlertAction(title: "Select", style: .default, handler: { (action) in
-            self.selectedRow = genderPicker.selectedRow(inComponent: 0)
-            let selected = Array(self.genders)[self.selectedRow]
-            let gender = selected
-            self.btnPickerGender.setTitle(gender, for: .normal)
-            print("Giới Tính: \(gender)")
+            let conformAlert = UIAlertController(title: "Change Unit", message: "Do you want to change the unit?", preferredStyle: .alert)
+            conformAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+                self.selectedRow = genderPicker.selectedRow(inComponent: 0)
+                let selected = Array(self.genders)[self.selectedRow]
+                let gender = selected
+                UserDefaultsKey.setValue(self.selectedRow, .USER_GENDER)
+                self.btnPickerGender.setTitle(gender, for: .normal)
+            }))
+            
+            conformAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            self.present(conformAlert, animated: true)
+        
         }))
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -141,8 +191,14 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
             self.selectedRowNumDecimal = weightPicker.selectedRow(inComponent: 1)
             
             let weight = String(self.integerArray[self.selectedRowNum]) + self.decimalArray[self.selectedRowNumDecimal]
-            self.btnPickerWeight.setTitle(weight + " Kg", for: .normal)
-            print("Weight: \(weight) kg")
+            if UserDefaultsKey.getUnit() == 0 {
+                self.btnPickerWeight.setTitle(weight + " kg", for: .normal)
+            }
+            else{
+                self.btnPickerWeight.setTitle(weight + " lb", for: .normal)
+            }
+            UserDefaultsKey.setValue(Double(weight), .USER_WEIGHT)
+            print(UserDefaultsKey.getWeight())
         }))
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -158,9 +214,15 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         let vc = UIViewController()
         vc.preferredContentSize = CGSize(width: screenWidth, height: screenHeight)
         let slider = UISlider(frame: CGRect(x: 0, y: 0 , width: screenWidth, height: screenHeight))
-        slider.minimumValue = 1000
-        slider.maximumValue = 3000
-        slider.value = 1500
+        if UserDefaultsKey.getUnit() == 0 {
+            slider.minimumValue = 1000
+            slider.maximumValue = 3000
+        }
+        else{
+            slider.minimumValue = Float(1000 / ML_TO_FLOZ)
+            slider.maximumValue = Float(3000 / ML_TO_FLOZ)
+        }
+        slider.value = Float(UserDefaultsKey.getTotalWater())
         slider.isContinuous = true
         slider.addTarget(self, action: #selector(self.targetDrinkChangeValue(_:)), for: .valueChanged)
         
@@ -177,7 +239,7 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         valueLabel = UILabel()
         vc.view.addSubview(valueLabel)
         valueLabel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        valueLabel.text = "\(slider.value)"
+        valueLabel.text = UserDefaultsKey.getUnit() == 1 ? "\(slider.value) oz" :  "\(slider.value) ml"
         valueLabel.translatesAutoresizingMaskIntoConstraints = false
 
         // Add constraints for the label
@@ -196,6 +258,7 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         // Thêm các action vào alert
         alert.addAction(UIAlertAction(title: "Select", style: .default, handler: { (action) in
             self.btnPickerTargetDrink.setTitle(self.valueLabel.text!, for: .normal)
+            UserDefaultsKey.setValue(slider.value, .USER_TOTAL_WATER)
         }))
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -206,7 +269,7 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     
     @objc func targetDrinkChangeValue(_ sender: UISlider){
         let value = Int(sender.value)
-        self.valueLabel.text = "\(value)"
+        self.valueLabel.text = UserDefaultsKey.getUnit() == 1 ? "\(value) oz" :  "\(value) ml"
         print("Target drink: \(value)")
     }
     
@@ -259,6 +322,67 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         self.present(alert, animated: true, completion: nil)
     }
     
+    // MARK: Unit picker
+    
+    @IBAction func unitPopUpPicker(_ sender: UIButton) {
+        numberOfComponents = 1
+        checkTypePicker = Unit_PICKER
+        // Khởi tạo 1 viewComtroller mới
+        let vc = UIViewController()
+        vc.preferredContentSize = CGSize(width: screenWidth, height: screenHeight)
+        let unitPicker = UIPickerView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
+        unitPicker.dataSource = self
+        unitPicker.delegate = self
+        
+        unitPicker.selectRow(selectedRow, inComponent: 0, animated: false)
+        
+        vc.view.addSubview(unitPicker)
+        
+        // Các ràng buộc để căn giữa pickerView trong view controller
+        unitPicker.translatesAutoresizingMaskIntoConstraints = false
+        unitPicker.centerXAnchor.constraint(equalTo: vc.view.centerXAnchor).isActive = true
+        unitPicker.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor).isActive = true
+        
+        //Khoi tao 1 alert
+        let alert = UIAlertController(title: "Select unit", message: nil, preferredStyle: .actionSheet)
+        
+        // Đặt popover để hiển thị từ button
+        alert.popoverPresentationController?.sourceView = btnPickerGender
+        alert.popoverPresentationController?.sourceRect = btnPickerGender.bounds
+        
+        // Đặt view controller tùy chỉnh làm nội dung của alert
+        alert.setValue(vc, forKey: "contentViewController")
+        
+        // Thêm các action vào alert
+        alert.addAction(UIAlertAction(title: "Select", style: .default, handler: { (action) in
+            let conformAlert = UIAlertController(title: "Change Unit", message: "Do you want to change the unit?", preferredStyle: .alert)
+            conformAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+                self.selectedRow = unitPicker.selectedRow(inComponent: 0)
+                //Kiem tra don vi nguoi dung lay
+                if self.selectedRow == 1 && UserDefaultsKey.getUnit() == 0 {
+                    //Chuyen tu kg sang lb
+                    self.changeKg_MLToLB_OZ()
+                }
+                if self.selectedRow == 0 && UserDefaultsKey.getUnit() == 1 {
+                    //Chuyen tu lb sang kg
+                    self.changeLB_OZToKG_ML()
+                    
+                }
+                let selected = self.units[self.selectedRow]
+                UserDefaultsKey.setValue(self.selectedRow, .USER_UNIT)
+                self.btnPickerUnit.setTitle(selected, for: .normal)
+            }))
+            
+            conformAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            self.present(conformAlert, animated: true)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        // Hiển thị alert
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 30))
@@ -278,6 +402,9 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         }
         else if checkTypePicker == DURATION_TIME_PICKER {
             label.text = String(durationTimeOptions[row]) + " minute"
+        }
+        else if checkTypePicker == Unit_PICKER {
+            label.text = units[row]
         }
         
         return label
@@ -301,6 +428,9 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         else if checkTypePicker == DURATION_TIME_PICKER{
             return durationTimeOptions.count
         }
+        else if checkTypePicker == Unit_PICKER{
+            return units.count
+        }
         else{
             return 0
         }
@@ -308,6 +438,51 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
         return 60
+    }
+    
+    //MARK: Time Picker
+    
+    @IBAction func setWakeUp(_ sender: UIDatePicker) {
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: sender.date)
+        let minute = calendar.component(.minute, from: sender.date)
+        let strWakeupTime = "\(hour):\(minute)"
+        UserDefaultsKey.setValue(strWakeupTime, .USER_WAKEUP_TIME)
+        
+    }//end setwakeup
+    
+    @IBAction func setSleep(_ sender: UIDatePicker) {
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: sender.date)
+        let minute = calendar.component(.minute, from: sender.date)
+        let strSleepTime = "\(hour):\(minute)"
+        UserDefaultsKey.setValue(strSleepTime, .USER_SLEEP_TIME)
+    }
+    
+    //MARK: Chuyen doi don vi
+    
+    //Ham chuyen luong nuoc va can nang tu kg, ml sang lb, oz
+    func changeKg_MLToLB_OZ () {
+        //Chuyen tu kg sang lb
+        print("Can nang: \(UserDefaultsKey.getWeight())")
+        let weight = UserDefaultsKey.getWeight() / self.KG_TO_LB
+        let totalDrink = UserDefaultsKey.getTotalWater() / ML_TO_FLOZ
+        btnPickerWeight.setTitle(String(Int(weight.rounded())) + " lb", for: .normal)
+        btnPickerTargetDrink.setTitle(String(Int(totalDrink.rounded())) + " oz", for: .normal)
+        UserDefaultsKey.setValue(weight, .USER_WEIGHT)
+        UserDefaultsKey.setValue(totalDrink, .USER_TOTAL_WATER)
+    }
+    
+    //Ham chuyen luong nuoc va can nang lb, oz sang kg, ml
+    func changeLB_OZToKG_ML () {
+        //Chuyen tu kg sang lb
+        print("Can nang: \(UserDefaultsKey.getWeight())")
+        let weight = UserDefaultsKey.getWeight() * self.KG_TO_LB
+        let totalDrink = UserDefaultsKey.getTotalWater() * ML_TO_FLOZ
+        btnPickerWeight.setTitle(String(Int(weight.rounded())) + " kg", for: .normal)
+        btnPickerTargetDrink.setTitle(String(Int(totalDrink.rounded())) + " ml", for: .normal)
+        UserDefaultsKey.setValue(weight, .USER_WEIGHT)
+        UserDefaultsKey.setValue(totalDrink, .USER_TOTAL_WATER)
     }
     
     /*

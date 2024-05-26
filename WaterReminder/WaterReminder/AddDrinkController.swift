@@ -14,6 +14,11 @@ class AddDrinkController: UIViewController, UICollectionViewDelegate, UICollecti
     
     var cups = [Cup]()
     
+    override func viewWillAppear(_ animated: Bool) {
+        cups = Database().readCup() ?? []
+        cupCollection.reloadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -29,7 +34,8 @@ class AddDrinkController: UIViewController, UICollectionViewDelegate, UICollecti
         cupCollection.dataSource = self
         
         // Reload data để hiển thị danh sách cốc đã lưu
-        cupCollection.reloadData()
+//        cups = Database().readCup() ?? []
+//        cupCollection.reloadData()
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -52,6 +58,18 @@ class AddDrinkController: UIViewController, UICollectionViewDelegate, UICollecti
         CGSize(width: collectionView.frame.size.width / 4, height: 128)
     }
     
-
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        //Thuc hien insert coc nuoc vao database
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let todayDate = dateFormatter.string(from: Date())
+        dateFormatter.dateFormat = "HH:mm"
+        let now = dateFormatter.string(from: Date())
+        print("Nay hom nay: \(now)")
+        if Database().insertDrink(cup_id: cups[indexPath.row].id, time: now ,date: todayDate) {
+            //Chuyen ve man hinh truoc do
+            navigationController?.popViewController(animated: true)
+        }
+    }
 
 }

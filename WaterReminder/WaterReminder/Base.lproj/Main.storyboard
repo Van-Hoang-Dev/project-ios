@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ml" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="I34-Ox-POV">
-                                <rect key="frame" x="20" y="133" width="353" height="60"/>
+                                <rect key="frame" x="20" y="89" width="353" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="mxt-oh-lfC"/>
                                 </constraints>
@@ -36,10 +36,11 @@
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="saveData:" destination="9uk-hK-qCe" eventType="touchUpInside" id="6HG-Ln-mN9"/>
+                                    <segue destination="UTT-x5-cBf" kind="show" id="nRX-tb-X64"/>
                                 </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Hyp-V5-2le">
-                                <rect key="frame" x="20" y="223" width="353" height="497"/>
+                                <rect key="frame" x="20" y="179" width="353" height="541"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="bHb-Yx-csg">
                                     <size key="itemSize" width="128" height="128"/>
@@ -489,7 +490,7 @@
                                                     <constraint firstAttribute="height" constant="55" id="oFz-QD-77j"/>
                                                 </constraints>
                                                 <connections>
-                                                    <action selector="setWakeUp:" destination="jXd-ub-H7q" eventType="valueChanged" id="27q-mv-cgS"/>
+                                                    <action selector="setWakeUp:" destination="9DW-re-BkH" eventType="valueChanged" id="LAH-0Z-UNc"/>
                                                 </connections>
                                             </datePicker>
                                         </subviews>
@@ -526,7 +527,7 @@
                                                     <constraint firstAttribute="height" constant="55" id="v6M-IE-Kw5"/>
                                                 </constraints>
                                                 <connections>
-                                                    <action selector="setWakeUp:" destination="jXd-ub-H7q" eventType="valueChanged" id="oaN-Y8-shW"/>
+                                                    <action selector="setSleep:" destination="9DW-re-BkH" eventType="valueChanged" id="bJR-Nm-bLC"/>
                                                 </connections>
                                             </datePicker>
                                         </subviews>
@@ -666,7 +667,7 @@
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="1200 ml"/>
                                                         <connections>
-                                                            <action selector="targetDrinkPopUpPicker:" destination="9DW-re-BkH" eventType="touchUpInside" id="we5-VY-kO3"/>
+                                                            <action selector="unitPopUpPicker:" destination="9DW-re-BkH" eventType="touchUpInside" id="Gv7-42-W5X"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lUr-ey-xjE">
@@ -678,6 +679,7 @@
                                                         <buttonConfiguration key="configuration" style="plain" image="chevron.right" catalog="system"/>
                                                         <connections>
                                                             <action selector="targetDrinkPopUpPicker:" destination="9DW-re-BkH" eventType="touchUpInside" id="70C-ne-Swf"/>
+                                                            <action selector="unitPopUpPicker:" destination="9DW-re-BkH" eventType="touchUpInside" id="sRc-EW-xRC"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -733,8 +735,11 @@
                         <outlet property="btnPickerDuation" destination="DrV-lT-KWg" id="qbd-r8-b8Q"/>
                         <outlet property="btnPickerGender" destination="Ad8-B1-5rK" id="bjf-15-8Gu"/>
                         <outlet property="btnPickerTargetDrink" destination="Us6-3B-SVi" id="n9o-Ut-Fg9"/>
+                        <outlet property="btnPickerUnit" destination="HOi-Kx-Aur" id="hSP-cp-p9G"/>
                         <outlet property="btnPickerWeight" destination="COZ-0X-kMe" id="Xcu-o1-n65"/>
                         <outlet property="notificationSwitch" destination="zTu-zI-hVP" id="2f3-mX-TSE"/>
+                        <outlet property="sleepTime" destination="x1F-Gh-5TF" id="cdr-hU-vYI"/>
+                        <outlet property="wakeUpTime" destination="EKx-eZ-Oou" id="0ph-HN-AG9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CNV-ok-qFk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -764,7 +769,7 @@
                                 </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="pVC-aL-MML">
-                                <rect key="frame" x="20" y="133" width="353" height="587"/>
+                                <rect key="frame" x="20" y="89" width="353" height="631"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="m3y-sz-JcA">
                                     <size key="itemSize" width="128" height="128"/>
@@ -997,6 +1002,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="DrinkCollection" destination="GtI-ik-Z53" id="zdi-Xg-dWb"/>
+                        <outlet property="amoutWaterLabel" destination="ehi-Ok-HjH" id="15A-22-zbo"/>
+                        <outlet property="processWater" destination="HbP-rH-f3U" id="yDS-yy-pGv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9wA-MY-VKD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1222,7 +1229,7 @@
                                             <constraint firstAttribute="width" constant="123" id="wEj-bL-G38"/>
                                         </constraints>
                                         <date key="date" timeIntervalSinceReferenceDate="738288000.981745">
-                                            <!--2024-05-25 00:00:00 +0000-->
+                                            <!--1403-03-05 00:00:00 +0000-->
                                         </date>
                                         <connections>
                                             <action selector="setWakeUp:" destination="jXd-ub-H7q" eventType="valueChanged" id="aJZ-hD-2Xu"/>
@@ -1257,7 +1264,7 @@
                                             <constraint firstAttribute="width" constant="123" id="oBs-3C-BtY"/>
                                         </constraints>
                                         <date key="date" timeIntervalSinceReferenceDate="738342000.85711205">
-                                            <!--2024-05-25 15:00:00 +0000-->
+                                            <!--1403-03-05 15:00:00 +0000-->
                                         </date>
                                         <connections>
                                             <action selector="setSleep:" destination="jXd-ub-H7q" eventType="valueChanged" id="hZn-yh-hJC"/>
@@ -1275,6 +1282,7 @@
                                     <fontDescription key="titleFontDescription" type="boldSystem" pointSize="20"/>
                                 </buttonConfiguration>
                                 <connections>
+                                    <action selector="timeNextBtn:" destination="jXd-ub-H7q" eventType="touchUpInside" id="DWM-16-tgd"/>
                                     <segue destination="nAp-ka-tTs" kind="show" id="Tql-nD-m9C"/>
                                 </connections>
                             </button>
@@ -1328,13 +1336,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="What is your name?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Yc-Ox-pz1">
-                                <rect key="frame" x="20" y="123" width="353" height="36"/>
+                                <rect key="frame" x="20" y="64" width="353" height="36"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XGw-BZ-kd9">
-                                <rect key="frame" x="20" y="169" width="353" height="0.0"/>
+                                <rect key="frame" x="20" y="110" width="353" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1585,13 +1593,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your health plan" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bFe-wQ-qJ9">
-                                <rect key="frame" x="20" y="123" width="352" height="36"/>
+                                <rect key="frame" x="20" y="123" width="353" height="36"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2fD-uA-rQu">
-                                <rect key="frame" x="20" y="713" width="352" height="55"/>
+                                <rect key="frame" x="20" y="713" width="353" height="55"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="7W7-lq-fa8"/>
                                 </constraints>
@@ -1605,7 +1613,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is your water allowance each day. You can change your daily goals later if you have a special plan" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x3M-MP-Bsx">
-                                <rect key="frame" x="20" y="169" width="352" height="40"/>
+                                <rect key="frame" x="20" y="169" width="353" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="i8H-f0-DAC"/>
                                 </constraints>
@@ -1614,7 +1622,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="water" translatesAutoresizingMaskIntoConstraints="NO" id="aAy-fj-YJn">
-                                <rect key="frame" x="132" y="283" width="128" height="128"/>
+                                <rect key="frame" x="132" y="283" width="129" height="128"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="aAy-fj-YJn" secondAttribute="height" multiplier="1:1" id="gUf-bT-KEb"/>
                                     <constraint firstAttribute="height" constant="128" id="nHt-jL-jZW"/>
@@ -1622,7 +1630,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2100 ml" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Aa-hd-WJl">
-                                <rect key="frame" x="24" y="467" width="353" height="60"/>
+                                <rect key="frame" x="24" y="467" width="354" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="BAb-US-6gm"/>
                                 </constraints>
@@ -1665,6 +1673,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="xJe-Bk-sZD"/>
         <segue reference="w8m-dB-Y4Q"/>
+        <segue reference="bBl-EP-cPB"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="calendar" catalog="system" width="128" height="107"/>

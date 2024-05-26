@@ -12,18 +12,40 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
      @IBOutlet weak var DrinkCollection: UICollectionView!
     
+    
+    @IBOutlet weak var amoutWaterLabel: UILabel!
+    
+    @IBOutlet weak var processWater: UIProgressView!
+    
     var drinks = [Drink]()
 
     let notificationCenter = UNUserNotificationCenter.current()
     //Chuoi thoi gian
     let morningString = "19:35"
     let sleepString = "20:30"
+    let dao = Database()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let today =  dateFormatter.string(from: Date())
+        if let drinks = dao.readDrinksForDay(forDate: today) {
+            self.drinks = drinks
+            DrinkCollection.reloadData()
+        }
+        
+        let currentTotale = dao.calculateTotalWaterAmount()
+        let targetWater = UserDefaultsKey.getTotalWater()
+        amoutWaterLabel.text = "\(Int(currentTotale!))/\(Int(targetWater.rounded())) ml"
+        processWater.progress = Float(currentTotale! / targetWater)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        drinks.append(Drink(image: "cup1", amount: 200, date: "7:00"))
-        drinks.append(Drink(image: "cup1", amount: 300, date: "8:00"))
-        drinks.append(Drink(image: "cup1", amount: 100, date: "9:00"))
+//        drinks.append(Drink(image: "cup1", amount: 200, date: "7:00"))
+//        drinks.append(Drink(image: "cup1", amount: 300, date: "8:00"))
+//        drinks.append(Drink(image: "cup1", amount: 100, date: "9:00"))
+        
         
         DrinkCollection.delegate = self
         DrinkCollection.dataSource = self
@@ -101,8 +123,8 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
             waterDate = Calendar.current.date(byAdding: .minute, value: durationValue, to: waterDate)!
             let waterComp = Calendar.current.dateComponents([.hour, .minute], from: waterDate)
             
-            var gio = Calendar.current.component(.hour, from: waterDate)
-            var phut = Calendar.current.component(.minute, from: waterDate)
+            let gio = Calendar.current.component(.hour, from: waterDate)
+            let phut = Calendar.current.component(.minute, from: waterDate)
             print("Giờ: \(gio):\(phut)")
             
             
@@ -126,10 +148,11 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
         let reuseCell = "DrinkCollectionCell"
         let drink = drinks[indexPath.row]
         if let cell = DrinkCollection.dequeueReusableCell(withReuseIdentifier: reuseCell, for: indexPath) as? DrinkCollectionCell {
-            cell.image.image = UIImage(named: drink.image)
-            let formattedString = String(format: "%.0f", drink.amount) + " ml"
+            cell.image.image = UIImage(named: drink.cup.image)
+            let formattedString = String(format: "%.0f", drink.cup.amount) + " ml"
             cell.amout.text = formattedString
-            cell.time.text = drink.date
+            cell.time.text = drink.time
+            print("Ngay: \(drink.time)")
             return cell
         }
         fatalError("Khong the tao cell!")

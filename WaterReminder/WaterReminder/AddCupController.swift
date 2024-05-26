@@ -1,7 +1,7 @@
 import UIKit
 
 class AddCupController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-
+    
     @IBOutlet weak var imageCollection: UICollectionView!
     @IBOutlet weak var inputField: UITextField!
     
@@ -56,29 +56,29 @@ class AddCupController: UIViewController, UICollectionViewDelegate, UICollection
             self.present(alert, animated: true, completion: nil)
             return
         }
-
+        
         let cup = Cup(id: 0, image: image, amount: amount)
-                let db = Database()
-                
-                if db.insertCup(cup: cup) {
-                    let alert = UIAlertController(title: "Thành công", message: "Đã lưu dữ liệu thành công.", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
-                        self.dismiss(animated: true)
-                    }))
-                    self.present(alert, animated: true, completion: nil)
-                } else {
-                    let alert = UIAlertController(title: "Lỗi", message: "Không thể lưu dữ liệu.", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
-                }
-            }
-            /*
-            override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-                if segue.identifier == "showDrinkData" {
-                    if let destinationVC = segue.destination as? AddDrinkController {
-                        destinationVC.cups = Database().readCup() ?? []
-                    }
-                }
-            }
-            */
+        let db = Database()
+        
+        if db.insertCup(cup: cup) {
+            let alert = UIAlertController(title: "Thành công", message: "Đã lưu dữ liệu thành công.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+                self.navigationController?.popViewController(animated: true)
+            }))
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            let alert = UIAlertController(title: "Lỗi", message: "Không thể lưu dữ liệu.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    /*
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     if segue.identifier == "showDrinkData" {
+     if let destinationVC = segue.destination as? AddDrinkController {
+     destinationVC.cups = Database().readCup() ?? []
+     }
+     }
+     }
+     */
 }
