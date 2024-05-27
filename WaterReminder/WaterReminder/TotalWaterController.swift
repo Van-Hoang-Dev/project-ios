@@ -54,18 +54,32 @@ class TotalWaterController: UIViewController {
         UserDefaultsKey.setValue(totalWater, .USER_TOTAL_WATER)
         // Danh dau lan dau tien vao app
         UserDefaultsKey.setValue(true, .USER_ISUSEDFIRSTTIME)
-                
+        
+        //dan home vao lai nagivation controller
+        // Chuyển sang HomeViewController
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let reused = "HomeController"
+        
+        let homeVC = storyboard.instantiateViewController(withIdentifier: reused) as! HomeController
+        let navController = UINavigationController(rootViewController: homeVC)
+        
+        // Thay đổi root view controller của UIWindow
+        if let windowScene = view.window?.windowScene {
+            let sceneDelegate = windowScene.delegate as? SceneDelegate
+            sceneDelegate?.window?.rootViewController = navController
+            UIView.transition(with: sceneDelegate!.window!, duration: 0.5, options: .transitionCrossDissolve, animations: nil, completion: nil)
+        }
     }
     
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
