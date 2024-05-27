@@ -33,11 +33,12 @@ class Database {
     private let CUP_ID = "id"
     private let CUP_IMAGE = "image"
     private let CUP_AMOUNT = "amount_water"
-
+    
     // 3.Bang drink.
     private let DRINK_TABLE_NAME = "drinks"
     private let DRINK_ID = "id"
     private let DRINK_CUP = "cup_id"
+    private let DRINK_TIME = "time"
     private let DRINK_DATE = "date"
     
     //MARK: constructor
@@ -64,7 +65,7 @@ class Database {
             + "\(USER_SLEEP_TIME) TEXT, "
             + "\(USER_TOTAL_WATER) DOUBLE)"
             
-//            + "\(USER_ID) INTEGER PRIMARY KEY AUTOINCREMENT, "
+            //            + "\(USER_ID) INTEGER PRIMARY KEY AUTOINCREMENT, "
             let sql_create_cups = "CREATE TABLE \(CUP_TABLE_NAME) ("
             + "\(CUP_ID) INTEGER PRIMARY KEY AUTOINCREMENT, "
             + "\(CUP_AMOUNT) DOUBLE, "
@@ -73,6 +74,7 @@ class Database {
             let sql_create_drinks = "CREATE TABLE \(DRINK_TABLE_NAME) ("
             + "\(DRINK_ID) INTEGER PRIMARY KEY AUTOINCREMENT, "
             + "\(DRINK_CUP) INTEGER, "
+            + "\(DRINK_TIME) TEXT, "
             + "\(DRINK_DATE) TEXT)"
             
             //Kiem tra bang da duoc tao hay chua
@@ -159,7 +161,7 @@ class Database {
         }
         return OK
     }
-
+    
     //1.Thêm cup vào CSDL
     func insertCup(cup:Cup)->Bool{
         var OK = false
@@ -180,67 +182,142 @@ class Database {
         return OK
     }
     // 2. Đọc tất cả cups
-        func readCup() -> [Cup]? {
-            var cups = [Cup]()
-            if open() {
-                if database!.tableExists(CUP_TABLE_NAME) {
-                    let sql = "SELECT * FROM \(CUP_TABLE_NAME)"
-                    if let results = database!.executeQuery(sql, withArgumentsIn: []) {
-                        while results.next() {
-                            let id = Int(results.int(forColumn: CUP_ID))
-                            let image = results.string(forColumn: CUP_IMAGE) ?? ""
-                            let amount = results.double(forColumn: CUP_AMOUNT)
-                            let cup = Cup(id: id, image: image, amount: amount)
-                            cups.append(cup)
-                        }
-                        close()
-                        return cups
-                    } else {
-                        os_log("Lấy dữ liệu cups thất bại!!!")
+    func readCup() -> [Cup]? {
+        var cups = [Cup]()
+        if open() {
+            if database!.tableExists(CUP_TABLE_NAME) {
+                let sql = "SELECT * FROM \(CUP_TABLE_NAME)"
+                if let results = database!.executeQuery(sql, withArgumentsIn: []) {
+                    while results.next() {
+                        let id = Int(results.int(forColumn: CUP_ID))
+                        let image = results.string(forColumn: CUP_IMAGE) ?? ""
+                        let amount = results.double(forColumn: CUP_AMOUNT)
+                        let cup = Cup(id: id, image: image, amount: amount)
+                        cups.append(cup)
                     }
-                }
-                close()
-            }
-            return nil
-        }
-
-        // 3. Xóa cup theo id
-        func deleteCup(cupId: Int) -> Bool {
-            var OK = false
-            if open() {
-                if database!.tableExists(CUP_TABLE_NAME) {
-                    let sql = "DELETE FROM \(CUP_TABLE_NAME) WHERE \(CUP_ID) = ?"
-                    if database!.executeUpdate(sql, withArgumentsIn: [cupId]) {
-                        os_log("Đã xoá cup thành công.")
-                        OK = true
-                        close()
-                    } else {
-                        os_log("Đã xoá cup thất bại!!!")
-                    }
+                    close()
+                    return cups
+                } else {
+                    os_log("Lấy dữ liệu cups thất bại!!!")
                 }
             }
-            return OK
+            close()
         }
-
-        // 4. Cập nhật cup theo id
-        func updateCup(cupId: Int, newCup: Cup) -> Bool {
-            var OK = false
-            if open() {
-                if database!.tableExists(CUP_TABLE_NAME) {
-                    let sql = "UPDATE \(CUP_TABLE_NAME) SET \(CUP_IMAGE) = ?, \(CUP_AMOUNT) = ? WHERE \(CUP_ID) = ?"
-                    if database!.executeUpdate(sql, withArgumentsIn: [newCup.image, newCup.amount, cupId]) {
-                        os_log("Cập nhật cup thành công.")
-                        OK = true
-                        close()
-                    } else {
-                        os_log("Cập nhật cup thất bại!!!")
-                    }
-                }
-                close()
-            }
-            return OK
-        }
+        return nil
+    }
     
+    // 3. Xóa cup theo id
+    func deleteCup(cupId: Int) -> Bool {
+        var OK = false
+        if open() {
+            if database!.tableExists(CUP_TABLE_NAME) {
+                let sql = "DELETE FROM \(CUP_TABLE_NAME) WHERE \(CUP_ID) = ?"
+                if database!.executeUpdate(sql, withArgumentsIn: [cupId]) {
+                    os_log("Đã xoá cup thành công.")
+                    OK = true
+                    close()
+                } else {
+                    os_log("Đã xoá cup thất bại!!!")
+                }
+            }
+        }
+        return OK
+    }
     
+    // 4. Cập nhật cup theo id
+    func updateCup(cupId: Int, newCup: Cup) -> Bool {
+        var OK = false
+        if open() {
+            if database!.tableExists(CUP_TABLE_NAME) {
+                let sql = "UPDATE \(CUP_TABLE_NAME) SET \(CUP_IMAGE) = ?, \(CUP_AMOUNT) = ? WHERE \(CUP_ID) = ?"
+                if database!.executeUpdate(sql, withArgumentsIn: [newCup.image, newCup.amount, cupId]) {
+                    os_log("Cập nhật cup thành công.")
+                    OK = true
+                    close()
+                } else {
+                    os_log("Cập nhật cup thất bại!!!")
+                }
+            }
+            close()
+        }
+        return OK
+    }
+    
+    //1.Thêm drink vào CSDL
+    func insertDrink(cup_id:Int, time:String ,date:String)->Bool{
+        var OK = false
+        if open(){
+            if database!.tableExists(DRINK_TABLE_NAME){
+                let sql = "INSERT INTO \(DRINK_TABLE_NAME) (\(DRINK_CUP), \(DRINK_TIME) ,\(DRINK_DATE)) VALUES (?,?,?)"
+                // Lưu giá trị vào CSDL
+                if database!.executeUpdate(sql, withArgumentsIn: [cup_id, time ,date]){
+                    os_log("Đã thêm drink thành công.")
+                    OK = true
+                    close()
+                }
+                else{
+                    os_log("Đã thêm drink thất bại!!!")
+                }
+            }
+        }
+        return OK
+    }
+    // 2. Đọc tất cả drinks
+    //Truyen string date theo format "yyyy-MM-dd"
+    func readDrinksForDay(forDate date:String) -> [Drink]? {
+        var drinks = [Drink]()
+        if open() {
+            if database!.tableExists(DRINK_TABLE_NAME) {
+                let sql = "SELECT \(DRINK_TABLE_NAME).\(DRINK_TIME), \(DRINK_TABLE_NAME).\(DRINK_DATE),"
+                + " \(CUP_TABLE_NAME).\(CUP_IMAGE), \(CUP_TABLE_NAME).\(CUP_AMOUNT)"
+                + " FROM \(DRINK_TABLE_NAME)"
+                + " INNER JOIN \(CUP_TABLE_NAME) ON \(DRINK_TABLE_NAME).\(DRINK_CUP) = \(CUP_TABLE_NAME).\(CUP_ID)"
+                + " WHERE DATE(\(DRINK_TABLE_NAME).\(DRINK_DATE)) = ?"
+                if let results = database!.executeQuery(sql, withArgumentsIn: [date]) {
+                    while results.next() {
+                        let date = results.string(forColumn: DRINK_DATE) ?? ""
+                        let time = results.string(forColumn: DRINK_TIME) ?? ""
+                        let image = results.string(forColumn: CUP_IMAGE) ?? ""
+                        let amount = results.double(forColumn: CUP_AMOUNT)
+                        let cup = Cup(image: image, amount: amount)
+                        let drink = Drink(cup: cup, time: time ,date: date)
+                        drinks.append(drink)
+                    }
+                    close()
+                    return drinks
+                } else {
+                    os_log("Lấy dữ liệu drinks thất bại!!!")
+                }
+            }
+            close()
+        }
+        return nil
+    }
+    
+    func calculateTotalWaterAmount() -> Double? {
+        if open() {
+            if database!.tableExists(DRINK_TABLE_NAME) {
+                let today = Date()
+                let formatter = DateFormatter()
+                formatter.dateFormat = "yyyy-MM-dd"
+                let dateString = formatter.string(from: today)
+                
+                let sql = "SELECT SUM(\(CUP_TABLE_NAME).\(CUP_AMOUNT)) AS total_amount"
+                + " FROM \(DRINK_TABLE_NAME)"
+                + " INNER JOIN \(CUP_TABLE_NAME) ON \(DRINK_TABLE_NAME).\(DRINK_CUP) = \(CUP_TABLE_NAME).\(CUP_ID)"
+                + " WHERE DATE(\(DRINK_TABLE_NAME).\(DRINK_DATE)) = ?"
+                
+                if let results = database!.executeQuery(sql, withArgumentsIn: [dateString]), results.next() {
+                    let totalAmount = results.double(forColumn: "total_amount")
+                    close()
+                    return totalAmount
+                } else {
+                    os_log("Lấy tổng lượng nước thất bại!!!")
+                }
+            }
+            close()
+        }
+        return nil
+    }
     
 }//end class
