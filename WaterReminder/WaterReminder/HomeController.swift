@@ -159,7 +159,6 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
                 formattedString = String(format: "%.2f", drink.cup.amount) + " oz"
             }
             cell.amout.text = formattedString
-            
             cell.time.text = drink.time
             //print("Ngay: \(drink.time)")
             let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handelLongPress(_:)))
