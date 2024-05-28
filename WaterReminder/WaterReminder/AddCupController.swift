@@ -5,15 +5,21 @@ class AddCupController: UIViewController, UICollectionViewDelegate, UICollection
     @IBOutlet weak var imageCollection: UICollectionView!
     @IBOutlet weak var inputField: UITextField!
     
-    var images = ["cup1", "image1", "unit"]
+    var images = [String]()
     var selectedImage: String?
     var selectedIndexPath: IndexPath?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        for i in 1...9 {
+            images.append("cup\(i)")
+        }
         imageCollection.delegate = self
         imageCollection.dataSource = self
+        
+        let title = "Enter your cup in "
+        inputField.placeholder = UserDefaultsKey.getUnit() == 0 ? title + "ml" : title + "oz"
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -61,11 +67,8 @@ class AddCupController: UIViewController, UICollectionViewDelegate, UICollection
         let db = Database()
         
         if db.insertCup(cup: cup) {
-            let alert = UIAlertController(title: "Thành công", message: "Đã lưu dữ liệu thành công.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
-                self.navigationController?.popViewController(animated: true)
-            }))
-            self.present(alert, animated: true, completion: nil)
+            self.navigationController?.popViewController(animated: true)
+            
         } else {
             let alert = UIAlertController(title: "Lỗi", message: "Không thể lưu dữ liệu.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))

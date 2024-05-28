@@ -27,13 +27,14 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     
     var valueLabel: UILabel!
     
+    let dao = Database()
     var genders = [
         "Male", "Female"
     ]
     var units = ["kg and ml","lb and oz"];
     let integerArray = Array(20...200)
     var decimalArray = [".0", ".1", ".2", ".3", ".4", ".5", ".6", ".7", ".8", ".9"]
-    let durationTimeOptions = [5, 10, 15, 30, 60, 120]
+    let durationTimeOptions = [1, 5, 10, 15, 30, 60, 120]
     
     let screenWidth = UIScreen.main.bounds.width - 10
     let screenHeight = UIScreen.main.bounds.height / 2
@@ -53,8 +54,10 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     override func viewDidLoad() {
         super.viewDidLoad()
         // Load trạng thái của công tắc thông báo
-        let notificationEnabled = UserDefaults.standard.bool(forKey: "notificationEnabled")
+        let notificationEnabled = UserDefaultsKey.getNotification()
         notificationSwitch.isOn = notificationEnabled
+        
+        btnPickerDuation.setTitle(String(UserDefaultsKey.getDurationTime()) + " m", for: .normal)
         
         if UserDefaultsKey.getUnit() == 0 {
             btnPickerUnit.setTitle(units[0], for: .normal)
@@ -93,7 +96,7 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     
     @IBAction func notificationSwitchAc(_ sender: UISwitch) {
         // Lưu trạng thái công tắc thông báo
-        UserDefaults.standard.set(sender.isOn, forKey: "notificationEnabled")
+        UserDefaultsKey.setValue(sender.isOn, .USER_NOTIFICATION_ENABLED)
         
         if sender.isOn {
             print("Bat thong bao bao")
@@ -288,11 +291,7 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         durationTimePicker.selectRow(selectedRow, inComponent: 0, animated: false)
         
         vc.view.addSubview(durationTimePicker)
-        
-        // Đặt kích thước cho view controller là kích thước của picker view
-        //        vc.preferredContentSize = pickerView.frame.size
-        
-        // Các ràng buộc để căn giữa pickerView trong view controller
+
         durationTimePicker.translatesAutoresizingMaskIntoConstraints = false
         durationTimePicker.centerXAnchor.constraint(equalTo: vc.view.centerXAnchor).isActive = true
         durationTimePicker.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor).isActive = true
@@ -311,7 +310,8 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         alert.addAction(UIAlertAction(title: "Select", style: .default, handler: { (action) in
             self.selectedRow = durationTimePicker.selectedRow(inComponent: 0)
             let selected = self.durationTimeOptions[self.selectedRow]
-            let timeValue = String(selected)
+            let timeValue = String(selected) + "m"
+            UserDefaultsKey.setValue(selected, .USER_DURATION_TIME)
             self.btnPickerDuation.setTitle(timeValue, for: .normal)
             print("Duation: \(timeValue)")
         }))
@@ -469,8 +469,16 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         let totalDrink = UserDefaultsKey.getTotalWater() / ML_TO_FLOZ
         btnPickerWeight.setTitle(String(Int(weight.rounded())) + " lb", for: .normal)
         btnPickerTargetDrink.setTitle(String(Int(totalDrink.rounded())) + " oz", for: .normal)
+        //Thay doi trong local
         UserDefaultsKey.setValue(weight, .USER_WEIGHT)
         UserDefaultsKey.setValue(totalDrink, .USER_TOTAL_WATER)
+        
+        //Thay doi trong database
+        let cups = dao.readCup() ?? []
+        for cup in cups {
+            cup.amount = cup.amount / ML_TO_FLOZ
+            let _ = dao.updateAmountOfCup(cupId: cup.id, newAmount: cup.amount)
+        }
     }
     
     //Ham chuyen luong nuoc va can nang lb, oz sang kg, ml
@@ -481,18 +489,17 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         let totalDrink = UserDefaultsKey.getTotalWater() * ML_TO_FLOZ
         btnPickerWeight.setTitle(String(Int(weight.rounded())) + " kg", for: .normal)
         btnPickerTargetDrink.setTitle(String(Int(totalDrink.rounded())) + " ml", for: .normal)
+        //Thay doi trong local
         UserDefaultsKey.setValue(weight, .USER_WEIGHT)
         UserDefaultsKey.setValue(totalDrink, .USER_TOTAL_WATER)
+        
+        //Thay doi trong database
+        let cups = dao.readCup() ?? []
+        for cup in cups {
+            cup.amount = cup.amount * ML_TO_FLOZ
+            let _ = dao.updateAmountOfCup(cupId: cup.id, newAmount: cup.amount)
+        }
     }
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
 }

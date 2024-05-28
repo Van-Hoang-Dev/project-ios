@@ -211,15 +211,22 @@ class Database {
         var OK = false
         if open() {
             if database!.tableExists(CUP_TABLE_NAME) {
-                let sql = "DELETE FROM \(CUP_TABLE_NAME) WHERE \(CUP_ID) = ?"
-                if database!.executeUpdate(sql, withArgumentsIn: [cupId]) {
-                    os_log("Đã xoá cup thành công.")
-                    OK = true
-                    close()
-                } else {
-                    os_log("Đã xoá cup thất bại!!!")
+                
+                // Xóa các drink liên quan đến cupId
+                let deleteDrinksSQL = "DELETE FROM \(DRINK_TABLE_NAME) WHERE \(DRINK_CUP) = ?"
+                if database!.executeUpdate(deleteDrinksSQL, withArgumentsIn: [cupId]) {
+                    os_log("Đã xoá các drink liên quan đến cup thành công.")
+                    // Xóa các cup
+                    let sql = "DELETE FROM \(CUP_TABLE_NAME) WHERE \(CUP_ID) = ?"
+                    if database!.executeUpdate(sql, withArgumentsIn: [cupId]) {
+                        os_log("Đã xoá cup thành công.")
+                        OK = true
+                    } else {
+                        os_log("Đã xoá cup thất bại!!!")
+                    }
                 }
             }
+            close()
         }
         return OK
     }
@@ -229,6 +236,7 @@ class Database {
         var OK = false
         if open() {
             if database!.tableExists(CUP_TABLE_NAME) {
+                
                 let sql = "UPDATE \(CUP_TABLE_NAME) SET \(CUP_IMAGE) = ?, \(CUP_AMOUNT) = ? WHERE \(CUP_ID) = ?"
                 if database!.executeUpdate(sql, withArgumentsIn: [newCup.image, newCup.amount, cupId]) {
                     os_log("Cập nhật cup thành công.")
@@ -236,6 +244,26 @@ class Database {
                     close()
                 } else {
                     os_log("Cập nhật cup thất bại!!!")
+                }
+            }
+            close()
+        }
+        return OK
+    }
+    
+    // 4. Cập nhật lương nươc khi thay đổi theo đơn vị
+    func updateAmountOfCup(cupId: Int, newAmount:Double) -> Bool {
+        var OK = false
+        if open() {
+            if database!.tableExists(CUP_TABLE_NAME) {
+                
+                let sql = "UPDATE \(CUP_TABLE_NAME) SET \(CUP_AMOUNT) = ? WHERE \(CUP_ID) = ?"
+                if database!.executeUpdate(sql, withArgumentsIn: [newAmount, cupId]) {
+                    os_log("Cập nhật dữ liệu theo đơn vị thành công.")
+                    OK = true
+                    close()
+                } else {
+                    os_log("Cập nhật dữ liệu theo đơn vị thất bại!!!")
                 }
             }
             close()
@@ -268,19 +296,20 @@ class Database {
         var drinks = [Drink]()
         if open() {
             if database!.tableExists(DRINK_TABLE_NAME) {
-                let sql = "SELECT \(DRINK_TABLE_NAME).\(DRINK_TIME), \(DRINK_TABLE_NAME).\(DRINK_DATE),"
+                let sql = "SELECT \(DRINK_TABLE_NAME).\(DRINK_ID), \(DRINK_TABLE_NAME).\(DRINK_TIME), \(DRINK_TABLE_NAME).\(DRINK_DATE),"
                 + " \(CUP_TABLE_NAME).\(CUP_IMAGE), \(CUP_TABLE_NAME).\(CUP_AMOUNT)"
                 + " FROM \(DRINK_TABLE_NAME)"
                 + " INNER JOIN \(CUP_TABLE_NAME) ON \(DRINK_TABLE_NAME).\(DRINK_CUP) = \(CUP_TABLE_NAME).\(CUP_ID)"
                 + " WHERE DATE(\(DRINK_TABLE_NAME).\(DRINK_DATE)) = ?"
                 if let results = database!.executeQuery(sql, withArgumentsIn: [date]) {
                     while results.next() {
+                        let id = results.int(forColumn: DRINK_ID)
                         let date = results.string(forColumn: DRINK_DATE) ?? ""
                         let time = results.string(forColumn: DRINK_TIME) ?? ""
                         let image = results.string(forColumn: CUP_IMAGE) ?? ""
                         let amount = results.double(forColumn: CUP_AMOUNT)
                         let cup = Cup(image: image, amount: amount)
-                        let drink = Drink(cup: cup, time: time ,date: date)
+                        let drink = Drink(id: Int(id) ,cup: cup, time: time ,date: date)
                         drinks.append(drink)
                     }
                     close()
@@ -294,20 +323,35 @@ class Database {
         return nil
     }
     
-    func calculateTotalWaterAmount() -> Double? {
+    //Ham xoa nuoc da uong
+    func deleteDrink(drinkId:Int)->Bool {
+        var OK = false
         if open() {
             if database!.tableExists(DRINK_TABLE_NAME) {
-                let today = Date()
-                let formatter = DateFormatter()
-                formatter.dateFormat = "yyyy-MM-dd"
-                let dateString = formatter.string(from: today)
+                let sql = "DELETE FROM \(DRINK_TABLE_NAME) WHERE \(DRINK_ID) = ?"
+                if database!.executeUpdate(sql, withArgumentsIn: [drinkId]) {
+                    os_log("Đã xoá drink thành công.")
+                    OK = true
+                } else {
+                    os_log("Đã xoá drink thất bại!!!")
+                }
+            }
+            close()
+        }
+        return OK
+    }
+    
+    //Lay tonh luong nuoc duoc them vao CSDL
+    func calculateTotalWaterAmount(forDate date:String) -> Double? {
+        if open() {
+            if database!.tableExists(DRINK_TABLE_NAME) {
                 
                 let sql = "SELECT SUM(\(CUP_TABLE_NAME).\(CUP_AMOUNT)) AS total_amount"
                 + " FROM \(DRINK_TABLE_NAME)"
                 + " INNER JOIN \(CUP_TABLE_NAME) ON \(DRINK_TABLE_NAME).\(DRINK_CUP) = \(CUP_TABLE_NAME).\(CUP_ID)"
                 + " WHERE DATE(\(DRINK_TABLE_NAME).\(DRINK_DATE)) = ?"
                 
-                if let results = database!.executeQuery(sql, withArgumentsIn: [dateString]), results.next() {
+                if let results = database!.executeQuery(sql, withArgumentsIn: [date]), results.next() {
                     let totalAmount = results.double(forColumn: "total_amount")
                     close()
                     return totalAmount

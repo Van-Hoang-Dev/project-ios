@@ -20,6 +20,8 @@ class EnterWeightController: UIViewController, UITextFieldDelegate {
         // Do any additional setup after loading the view.
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
             view.addGestureRecognizer(tapGesture)
+         let title = "Enter your weight in "
+        txtWeight.placeholder = UserDefaultsKey.getUnit() == 0 ? title + "kg" : title + "lb"
         
         txtWeight.delegate = self
         txtWeight.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)

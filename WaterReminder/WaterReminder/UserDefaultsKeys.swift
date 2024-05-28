@@ -21,6 +21,7 @@ class UserDefaultsKey {
         case USER_DURATION_TIME = "duration_time"
         case USER_NOTIFICATION_ENABLED = "notification_enabled"
         case USER_ISUSEDFIRSTTIME = "isUsedFirstTime"
+        case USER_DRINK_TIME = "user_drink_time"
     }
     //ham gan gia tri vao userDefaults
     public static let setValue: (_ value:Any?,_ key:User)->Void = {value, key in
@@ -61,5 +62,8 @@ class UserDefaultsKey {
     }
     public static func isUsedFirstTime()->Bool{
         return UserDefaults.standard.bool(forKey: User.USER_ISUSEDFIRSTTIME.rawValue)
+    }
+    public static func getDrinkTime()->String?{
+        return UserDefaults.standard.string(forKey: User.USER_DRINK_TIME.rawValue)
     }
 }

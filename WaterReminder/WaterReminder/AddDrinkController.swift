@@ -13,29 +13,18 @@ class AddDrinkController: UIViewController, UICollectionViewDelegate, UICollecti
     @IBOutlet weak var cupCollection: UICollectionView!
     
     var cups = [Cup]()
+    var dao = Database()
     
     override func viewWillAppear(_ animated: Bool) {
-        cups = Database().readCup() ?? []
-        cupCollection.reloadData()
+        // Reload data để hiển thị danh sách cốc đã lưu
+        updateData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-//        cups.append(Cup(image: "cup1", amount: 200))
-//        cups.append(Cup(image: "cup1", amount: 300))
-//        cups.append(Cup(image: "cup1", amount: 250))
-//        
-//        cups.append(Cup(image: "cup1", amount: 200))
-//        cups.append(Cup(image: "cup1", amount: 300))
-//        cups.append(Cup(image: "cup1", amount: 250))
         
         cupCollection.delegate = self
         cupCollection.dataSource = self
-        
-        // Reload data để hiển thị danh sách cốc đã lưu
-//        cups = Database().readCup() ?? []
-//        cupCollection.reloadData()
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -47,8 +36,17 @@ class AddDrinkController: UIViewController, UICollectionViewDelegate, UICollecti
         let cup = cups[indexPath.row]
         if let cell = cupCollection.dequeueReusableCell(withReuseIdentifier: reuseCell, for: indexPath) as? CupCollectionCell {
             cell.imageCup.image = UIImage(named: cup.image)
-            let formattedString = String(format: "%.0f", cup.amount) + " ml"
+            // Hiển thị lượng nước và đơn vị
+            var formattedString = ""
+            if UserDefaultsKey.getUnit() == 0 {
+                formattedString = String(format: "%.0f", cup.amount) + " ml"
+            }
+            else{
+                formattedString = String(format: "%.2f", cup.amount) + " oz"
+            }
             cell.labelAmount.text = formattedString
+            let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handelLongPress(_:)))
+            cell.addGestureRecognizer(longPressGesture)
             return cell
         }
         fatalError("Khong the tao cell!")
@@ -65,11 +63,35 @@ class AddDrinkController: UIViewController, UICollectionViewDelegate, UICollecti
         let todayDate = dateFormatter.string(from: Date())
         dateFormatter.dateFormat = "HH:mm"
         let now = dateFormatter.string(from: Date())
+        UserDefaultsKey.setValue(now, .USER_DRINK_TIME)
         print("Nay hom nay: \(now)")
-        if Database().insertDrink(cup_id: cups[indexPath.row].id, time: now ,date: todayDate) {
+        if dao.insertDrink(cup_id: cups[indexPath.row].id, time: now ,date: todayDate) {
             //Chuyen ve man hinh truoc do
             navigationController?.popViewController(animated: true)
         }
+    }
+    
+    // Su ly nhan giu de xoa coc nuoc
+    @objc func handelLongPress (_ gesture:UILongPressGestureRecognizer) {
+        if gesture.state == .began {
+            if let cell = gesture.view as? CupCollectionCell, let indexPath = cupCollection.indexPath(for: cell) {
+                let amount = "\(cups[indexPath.item].amount)" + (UserDefaultsKey.getUnit() == 0 ? "ml" : "oz")
+                let cupId = cups[indexPath.item].id
+                let alert = UIAlertController(title: "Delete", message: "Are you sure you want to delete the \(amount) cup of water? Because this will erase all the glasses of water you drank before!", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+                    if self.dao.deleteCup(cupId: cupId) {
+                        self.updateData()
+                    }
+                }))
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
+    }
+  //Ham lay du lieu tu database
+    func updateData() {
+        cups = dao.readCup() ?? []
+        cupCollection.reloadData()
     }
 
 }

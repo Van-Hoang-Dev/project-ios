@@ -16,8 +16,10 @@ class DrinkHistoryController: UIViewController,UICollectionViewDelegate, UIColle
     @IBOutlet weak var monthLabel: UILabel!
     
     
+    
     var totalSquares = [Date]()
     var selectedDate = Date()
+    let dao = Database()
     
     var totalDrinks = [Drink]()
     
@@ -28,17 +30,8 @@ class DrinkHistoryController: UIViewController,UICollectionViewDelegate, UIColle
         daysOfWeekCollection.delegate = self
         daysOfWeekCollection.dataSource = self
         
-        
-        let drink1 = Drink(image: "cup1", amount: 200, date: "10:00")
-        totalDrinks.append(drink1)
-        totalDrinks.append(drink1)
-        totalDrinks.append(drink1)
-        totalDrinks.append(drink1)
-        
         drinksCollection.delegate = self
         drinksCollection.dataSource = self
-        
-        // Do any additional setup after loading the view.
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -59,13 +52,36 @@ class DrinkHistoryController: UIViewController,UICollectionViewDelegate, UIColle
                 let date = totalSquares[indexPath.item]
                 
                 cell.dayOfMonth.text = String(CalendarHelper().dayOfMonth(date: date))
+                //Luong nuoc cua 1 ngay
+                let strDate = formatDate(date: date)
+                let totalWaterOfDayDB = dao.calculateTotalWaterAmount(forDate: strDate) ?? 0
+                let totalOfDay = Float(totalWaterOfDayDB / UserDefaultsKey.getTotalWater())
+                cell.processTargeWater.progress = totalOfDay
                 
                 if selectedDate == date {
+                    //Dat background cho cell
                     cell.backgroundColor = UIColor.systemBlue
                     cell.dayOfMonth.textColor = UIColor.white
+                    
+                    // Dat au cho process
+                    // Màu của phần tiến trình
+                    cell.processTargeWater.progressTintColor = UIColor.white
+                    // Màu của phần chưa đạt được
+                    cell.processTargeWater.trackTintColor = UIColor.systemGray3
+                    
+                    //Day du lieu theo ngay duoc chon
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd"
+                    let current = dateFormatter.string(from: selectedDate)
+                    totalDrinks = Database().readDrinksForDay(forDate: current) ?? []
+                    drinksCollection.reloadData()
                 }else {
                     cell.backgroundColor = UIColor.white
                     cell.dayOfMonth.textColor = UIColor.black
+                    // Màu của phần tiến trình
+                    cell.processTargeWater.progressTintColor = UIColor.systemBlue
+                    // Màu của phần chưa đạt được
+                    cell.processTargeWater.trackTintColor = UIColor.systemGray5
                 }
                 return cell
             }
@@ -77,9 +93,22 @@ class DrinkHistoryController: UIViewController,UICollectionViewDelegate, UIColle
                 
                 let drink = totalDrinks[indexPath.item]
                 
-                cell.image.image = UIImage(named: drink.image)
-                cell.amout.text = String(drink.amount)
-                cell.time.text = drink.date
+                cell.image.image = UIImage(named: drink.cup.image)
+                // Hiển thị lượng nước và đơn vị
+                var formattedString = ""
+                if UserDefaultsKey.getUnit() == 0 {
+                    formattedString = String(format: "%.0f", drink.cup.amount) + " ml"
+                }
+                else{
+                    formattedString = String(format: "%.2f", drink.cup.amount) + " oz"
+                }
+                cell.amout.text = formattedString
+                cell.time.text = drink.time
+                
+                // Add long press gesture recognizer
+                let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
+                cell.addGestureRecognizer(longPressGesture)
+                
                 
                 return cell
             }
@@ -93,6 +122,28 @@ class DrinkHistoryController: UIViewController,UICollectionViewDelegate, UIColle
         if collectionView == daysOfWeekCollection{
             selectedDate = totalSquares[indexPath.item]
             daysOfWeekCollection.reloadData()
+            let date = formatDate(date: selectedDate)
+            totalDrinks = Database().readDrinksForDay(forDate: date) ?? []
+            drinksCollection.reloadData()
+        }
+    }
+    
+    //Format date
+    func formatDate(date:Date)-> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let strDate = dateFormatter.string(from: date)
+        return strDate
+    }
+    
+    @objc func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
+        if gesture.state == .began {
+            if let cell = gesture.view as? DrinkCollectionCell, let indexPath = drinksCollection.indexPath(for: cell) {
+                let drink = totalDrinks[indexPath.item]
+                let alertController = UIAlertController(title: "Drink Info", message: "You held down on a drink with amount \(drink.cup.amount) at \(drink.time).", preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alertController, animated: true, completion: nil)
+            }
         }
     }
     /*
@@ -115,7 +166,7 @@ class DrinkHistoryController: UIViewController,UICollectionViewDelegate, UIColle
         
         let drinkWidth = (drinksCollection.frame.size.width)/4
         
-        let drinkHeight:CGFloat = 128
+        let drinkHeight:CGFloat = (drinksCollection.frame.size.width)/2.5
         
         let flowDrinkLayout = drinksCollection.collectionViewLayout as! UICollectionViewFlowLayout
         
@@ -148,15 +199,5 @@ class DrinkHistoryController: UIViewController,UICollectionViewDelegate, UIColle
         selectedDate = CalendarHelper().addDays(date: selectedDate, days: 7)
         setWeekView()
     }
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
 }

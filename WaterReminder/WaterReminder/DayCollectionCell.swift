@@ -11,4 +11,5 @@ class DayCollectionCell: UICollectionViewCell {
     
     @IBOutlet weak var dayOfMonth: UILabel!
     
+    @IBOutlet weak var processTargeWater: UIProgressView!
 }
