@@ -38,8 +38,9 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     
     let screenWidth = UIScreen.main.bounds.width - 10
     let screenHeight = UIScreen.main.bounds.height / 2
-    var selectedRow = 0
-    var selectedRowNum = 0
+    var selectedRow = UserDefaultsKey.getGender()
+    var selectedtUnit = UserDefaultsKey.getUnit()
+    var selectedRowNum = Int(UserDefaultsKey.getWeight())
     var selectedRowNumDecimal = 0
     var numberOfComponents = 1
     var checkTypePicker = ""
@@ -59,14 +60,17 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         
         btnPickerDuation.setTitle(String(UserDefaultsKey.getDurationTime()) + " m", for: .normal)
         
+        var formattedString = ""
         if UserDefaultsKey.getUnit() == 0 {
             btnPickerUnit.setTitle(units[0], for: .normal)
-            btnPickerWeight.setTitle(String(Int(UserDefaultsKey.getWeight())) + " kg", for: .normal)
+            formattedString = String(format: "%.1f", UserDefaultsKey.getWeight())
+            btnPickerWeight.setTitle(formattedString + " kg", for: .normal)
             btnPickerTargetDrink.setTitle(String(Int(UserDefaultsKey.getTotalWater().rounded())) + " ml", for: .normal)
         }
         else{
             btnPickerUnit.setTitle(units[1], for: .normal)
-            btnPickerWeight.setTitle(String(Int(UserDefaultsKey.getWeight())) + " lb", for: .normal)
+            formattedString = String(format: "%.2f", UserDefaultsKey.getWeight())
+            btnPickerWeight.setTitle(formattedString + " lb", for: .normal)
             btnPickerTargetDrink.setTitle(String(Int(UserDefaultsKey.getTotalWater().rounded())) + " oz", for: .normal)
         }
         
@@ -141,7 +145,7 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         
         // Thêm các action vào alert
         alert.addAction(UIAlertAction(title: "Select", style: .default, handler: { (action) in
-            let conformAlert = UIAlertController(title: "Change Unit", message: "Do you want to change the unit?", preferredStyle: .alert)
+            let conformAlert = UIAlertController(title: "Change Gender", message: "Do you want to change?", preferredStyle: .alert)
             conformAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
                 self.selectedRow = genderPicker.selectedRow(inComponent: 0)
                 let selected = Array(self.genders)[self.selectedRow]
@@ -225,6 +229,8 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
             slider.minimumValue = Float(1000 / ML_TO_FLOZ)
             slider.maximumValue = Float(3000 / ML_TO_FLOZ)
         }
+        
+        
         slider.value = Float(UserDefaultsKey.getTotalWater())
         slider.isContinuous = true
         slider.addTarget(self, action: #selector(self.targetDrinkChangeValue(_:)), for: .valueChanged)
@@ -242,7 +248,14 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         valueLabel = UILabel()
         vc.view.addSubview(valueLabel)
         valueLabel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        valueLabel.text = UserDefaultsKey.getUnit() == 1 ? "\(slider.value) oz" :  "\(slider.value) ml"
+        var formattedString = ""
+        if UserDefaultsKey.getUnit() == 0 {
+            formattedString = String(format: "%.0f", slider.value) + " ml"
+        }
+        else{
+            formattedString = String(format: "%.2f", slider.value) + " oz"
+        }
+        valueLabel.text = formattedString
         valueLabel.translatesAutoresizingMaskIntoConstraints = false
 
         // Add constraints for the label
@@ -271,8 +284,15 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     }
     
     @objc func targetDrinkChangeValue(_ sender: UISlider){
-        let value = Int(sender.value)
-        self.valueLabel.text = UserDefaultsKey.getUnit() == 1 ? "\(value) oz" :  "\(value) ml"
+        let value = sender.value
+        var formattedString = ""
+        if UserDefaultsKey.getUnit() == 0 {
+            formattedString = String(format: "%.0f", value) + " ml"
+        }
+        else{
+            formattedString = String(format: "%.2f",  value) + " oz"
+        }
+        self.valueLabel.text = formattedString
         print("Target drink: \(value)")
     }
     
@@ -334,7 +354,7 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         unitPicker.dataSource = self
         unitPicker.delegate = self
         
-        unitPicker.selectRow(selectedRow, inComponent: 0, animated: false)
+        unitPicker.selectRow(selectedtUnit, inComponent: 0, animated: false)
         
         vc.view.addSubview(unitPicker)
         
@@ -357,19 +377,19 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         alert.addAction(UIAlertAction(title: "Select", style: .default, handler: { (action) in
             let conformAlert = UIAlertController(title: "Change Unit", message: "Do you want to change the unit?", preferredStyle: .alert)
             conformAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
-                self.selectedRow = unitPicker.selectedRow(inComponent: 0)
+                self.selectedtUnit = unitPicker.selectedRow(inComponent: 0)
                 //Kiem tra don vi nguoi dung lay
-                if self.selectedRow == 1 && UserDefaultsKey.getUnit() == 0 {
+                if self.selectedtUnit == 1 && UserDefaultsKey.getUnit() == 0 {
                     //Chuyen tu kg sang lb
                     self.changeKg_MLToLB_OZ()
                 }
-                if self.selectedRow == 0 && UserDefaultsKey.getUnit() == 1 {
+                if self.selectedtUnit == 0 && UserDefaultsKey.getUnit() == 1 {
                     //Chuyen tu lb sang kg
                     self.changeLB_OZToKG_ML()
                     
                 }
-                let selected = self.units[self.selectedRow]
-                UserDefaultsKey.setValue(self.selectedRow, .USER_UNIT)
+                let selected = self.units[self.selectedtUnit]
+                UserDefaultsKey.setValue(self.selectedtUnit, .USER_UNIT)
                 self.btnPickerUnit.setTitle(selected, for: .normal)
             }))
             
@@ -479,6 +499,12 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
             cup.amount = cup.amount / ML_TO_FLOZ
             let _ = dao.updateAmountOfCup(cupId: cup.id, newAmount: cup.amount)
         }
+        let drinks = dao.readDrinks() ?? []
+        for drink in drinks {
+            drink.amount = drink.amount / ML_TO_FLOZ
+            let _ = dao.updateAmountOfDrinks(drinkId: drink.id, newAmount: drink.amount)
+        }
+        
     }
     
     //Ham chuyen luong nuoc va can nang lb, oz sang kg, ml
@@ -499,6 +525,12 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
             cup.amount = cup.amount * ML_TO_FLOZ
             let _ = dao.updateAmountOfCup(cupId: cup.id, newAmount: cup.amount)
         }
+        let drinks = dao.readDrinks() ?? []
+        for drink in drinks {
+            drink.amount = drink.amount * ML_TO_FLOZ
+            let _ = dao.updateAmountOfDrinks(drinkId: drink.id, newAmount: drink.amount)
+        }
+        
     }
     
     

@@ -93,14 +93,14 @@ class DrinkHistoryController: UIViewController,UICollectionViewDelegate, UIColle
                 
                 let drink = totalDrinks[indexPath.item]
                 
-                cell.image.image = UIImage(named: drink.cup.image)
+                cell.image.image = UIImage(named: drink.image)
                 // Hiển thị lượng nước và đơn vị
                 var formattedString = ""
                 if UserDefaultsKey.getUnit() == 0 {
-                    formattedString = String(format: "%.0f", drink.cup.amount) + " ml"
+                    formattedString = String(format: "%.0f", drink.amount) + " ml"
                 }
                 else{
-                    formattedString = String(format: "%.2f", drink.cup.amount) + " oz"
+                    formattedString = String(format: "%.2f", drink.amount) + " oz"
                 }
                 cell.amout.text = formattedString
                 cell.time.text = drink.time
@@ -140,7 +140,7 @@ class DrinkHistoryController: UIViewController,UICollectionViewDelegate, UIColle
         if gesture.state == .began {
             if let cell = gesture.view as? DrinkCollectionCell, let indexPath = drinksCollection.indexPath(for: cell) {
                 let drink = totalDrinks[indexPath.item]
-                let alertController = UIAlertController(title: "Drink Info", message: "You held down on a drink with amount \(drink.cup.amount) at \(drink.time).", preferredStyle: .alert)
+                let alertController = UIAlertController(title: "Drink Info", message: "You held down on a drink with amount \(drink.amount) at \(drink.time).", preferredStyle: .alert)
                 alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.present(alertController, animated: true, completion: nil)
             }

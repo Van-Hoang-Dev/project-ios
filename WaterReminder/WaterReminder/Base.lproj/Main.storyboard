@@ -13,7 +13,7 @@
         <!--Add Cup Controller-->
         <scene sceneID="rxw-QM-K3q">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="9uk-hK-qCe" customClass="AddCupController" customModule="WaterReminder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddCupControllerID" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9uk-hK-qCe" customClass="AddCupController" customModule="WaterReminder" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="swf-HY-9jx">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -383,7 +383,7 @@
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" image="clock" catalog="system"/>
                                                         <connections>
-                                                            <action selector="weightPopUpPicker:" destination="9DW-re-BkH" eventType="touchUpInside" id="cix-IY-ada"/>
+                                                            <action selector="durationTimePopUpPicker:" destination="9DW-re-BkH" eventType="touchUpInside" id="Pex-Db-tor"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -680,7 +680,6 @@
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" image="chevron.right" catalog="system"/>
                                                         <connections>
-                                                            <action selector="targetDrinkPopUpPicker:" destination="9DW-re-BkH" eventType="touchUpInside" id="70C-ne-Swf"/>
                                                             <action selector="unitPopUpPicker:" destination="9DW-re-BkH" eventType="touchUpInside" id="sRc-EW-xRC"/>
                                                         </connections>
                                                     </button>

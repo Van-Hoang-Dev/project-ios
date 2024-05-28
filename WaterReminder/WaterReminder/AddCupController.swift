@@ -8,6 +8,8 @@ class AddCupController: UIViewController, UICollectionViewDelegate, UICollection
     var images = [String]()
     var selectedImage: String?
     var selectedIndexPath: IndexPath?
+    var cup:Cup?
+    let dao = Database()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -15,11 +17,17 @@ class AddCupController: UIViewController, UICollectionViewDelegate, UICollection
         for i in 1...9 {
             images.append("cup\(i)")
         }
-        imageCollection.delegate = self
-        imageCollection.dataSource = self
         
         let title = "Enter your cup in "
         inputField.placeholder = UserDefaultsKey.getUnit() == 0 ? title + "ml" : title + "oz"
+        if let cup = cup {
+            inputField.text = "\(cup.amount)"
+            selectedImage = cup.image
+            
+        }
+        
+        imageCollection.delegate = self
+        imageCollection.dataSource = self
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -63,17 +71,30 @@ class AddCupController: UIViewController, UICollectionViewDelegate, UICollection
             return
         }
         
-        let cup = Cup(id: 0, image: image, amount: amount)
-        let db = Database()
-        
-        if db.insertCup(cup: cup) {
-            self.navigationController?.popViewController(animated: true)
+        if let cup = cup {
+            cup.image = image;
+            cup.amount = amount;
             
-        } else {
-            let alert = UIAlertController(title: "Lỗi", message: "Không thể lưu dữ liệu.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+            if dao.updateCup(cup: cup) {
+                self.navigationController?.popViewController(animated: true)
+                
+            } else {
+                let alert = UIAlertController(title: "Lỗi", message: "Không thể lưu dữ liệu.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+        }else{
+            let cup = Cup(id: 0, image: image, amount: amount)
+            if dao.insertCup(cup: cup) {
+                self.navigationController?.popViewController(animated: true)
+                
+            } else {
+                let alert = UIAlertController(title: "Lỗi", message: "Không thể lưu dữ liệu.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
         }
+    
     }
     /*
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
