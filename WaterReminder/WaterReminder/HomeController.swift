@@ -8,7 +8,7 @@
 import UIKit
 import UserNotifications
 
-class HomeController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class HomeController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UNUserNotificationCenterDelegate {
     
     @IBOutlet weak var drinkCollection: UICollectionView!
     
@@ -21,10 +21,10 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     let notificationCenter = UNUserNotificationCenter.current()
     //Chuoi thoi gian
-    let morningString = UserDefaultsKey.getWakeUpTime() ?? "6:30"
-    let sleepString = UserDefaultsKey.getSleepTime() ?? "22:30"
-    let durationTime = UserDefaultsKey.getDurationTime()
-    let drinkTime = UserDefaultsKey.getDrinkTime() ?? "6:30"
+    var morningString = UserDefaultsKey.getWakeUpTime() ?? "6:30"
+    var sleepString = UserDefaultsKey.getSleepTime() ?? "22:30"
+    var durationTime = UserDefaultsKey.getDurationTime()
+    var drinkTime:String? = UserDefaultsKey.getDrinkTime()
     let dao = Database()
     let today =  Date()
     let reminderString = [
@@ -42,6 +42,14 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     override func viewWillAppear(_ animated: Bool) {
         updateData()
+        // Kiểm tra quyền thông báo và tự động đặt thông báo nếu đã được cấp quyền
+        morningString = UserDefaultsKey.getWakeUpTime() ?? ""
+        sleepString = UserDefaultsKey.getSleepTime() ?? ""
+        let durationTime = UserDefaultsKey.getDurationTime()
+        drinkTime = UserDefaultsKey.getDrinkTime()
+        checkAndScheduleNotifications()
+        print("Check it run again: \(drinkTime ?? "")")
+        
     }
     
     override func viewDidLoad() {
@@ -49,50 +57,68 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         drinkCollection.delegate = self
         drinkCollection.dataSource = self
-        // Kiểm tra quyền thông báo và tự động đặt thông báo nếu đã được cấp quyền
-        checkAndScheduleNotifications()
+        notificationCenter.delegate = self
         
         
     }
+    // Hàm này được gọi khi thông báo được nhận và ứng dụng đang mở
+        func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+            // Xác định cách thông báo sẽ được hiển thị
+            // Ở đây, chúng ta chọn hiển thị thông báo trên màn hình
+            completionHandler([.banner, .sound, .badge])
+        }
     
+    
+    //Hàm check quyền và tạo thông báo
     func checkAndScheduleNotifications() {
         notificationCenter.getNotificationSettings { settings in
             if settings.authorizationStatus == .authorized {
                 //để đảm bảo rằng nó được thực hiện trên luồng chính
-                DispatchQueue.main.sync {
+                //DispatchQueue.main.async {
                     print("Thong bao doc cho phep!")
                     // Đặt thông báo
                     let notificationEnabled = UserDefaultsKey.getNotification()
                     if notificationEnabled {
-                        // Chuyen chuoi thanh date
                         let dateFormatter = DateFormatter()
-                        dateFormatter.dateFormat = "HH:mm"
-                        // kiểm tra một điều kiện và yêu cầu một hành động được thực hiện nếu điều kiện không đúng, ngăn việc thực thi phần còn lại của mã trong phạm vi hiện tại.
-                        guard let morningTime = dateFormatter.date(from: self.morningString),
-                              let sleepTime = dateFormatter.date(from: self.sleepString) else{
-                            print("ERR: Không thể chuyển chuỗi thành ngày")
-                            return
-                        }
-                        
-                        //Ngay co dinh
-                        let currentDate = Date()
-                        //Ket hop thoi gian voi ngay
-                        let calendar = Calendar.current
-                        let morningDate = calendar.date(bySettingHour: calendar.component(.hour, from: morningTime),minute: calendar.component(.minute, from: morningTime),second: 0, of: currentDate) ?? Date()
-                        
-                        let sleepDate = calendar.date(bySettingHour: calendar.component(.hour, from: sleepTime),minute: calendar.component(.minute, from: sleepTime),second: 0, of: currentDate) ?? Date()
+                        dateFormatter.dateFormat = "HH:mm dd/MM/yyyy"
+                        let morningDate = self.createDate(from: self.morningString)
+                        let sleepDate = self.createDate(from: self.sleepString)
                         
                         print("Morning Date: \(dateFormatter.string(from: morningDate))")
                         print("Sleep Date: \(dateFormatter.string(from: sleepDate))")
-                        self.scheduleMorningNotification(date: morningDate)
-                        self.scheduleWaterNotification(from: morningDate, to: sleepDate, duration: self.durationTime)
+                        if let drinkTime = self.drinkTime {
+                            let drinkTimeDate = self.createDate(from: drinkTime)
+                            print("Drink Date: \(dateFormatter.string(from: drinkTimeDate))")
+                            self.scheduleWaterNotification(from: drinkTimeDate, to: sleepDate, duration: self.durationTime)
+                        }
+                        else {
+                            self.scheduleMorningNotification(date: morningDate)
+                            self.scheduleWaterNotification(from: morningDate, to: sleepDate, duration: self.durationTime)
+                        }
                     }
                     else{
                         
                     }
                 }
             }
+       //}
+    }
+    
+    //Ham chuyen chuoi sang calender
+    func createDate(from timeString: String, currentDate: Date = Date()) -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        
+        guard let time = dateFormatter.date(from: timeString) else {
+            print("ERR: Không thể chuyển chuỗi thành ngày")
+            return currentDate
         }
+        
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: time)
+        let minute = calendar.component(.minute, from: time)
+        
+        return calendar.date(bySettingHour: hour, minute: minute, second: 0, of: currentDate) ?? currentDate
     }
     
     func scheduleMorningNotification(date: Date) {
@@ -115,7 +141,7 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
         print("Thoi gian lap lai: \(durationValue)")
         var waterDate = startDate
         while waterDate < endDate {
-    
+            
             let waterContent = UNMutableNotificationContent()
             waterContent.title = "Stay Hydrated!"
             waterContent.body = reminderString.randomElement()!
@@ -149,14 +175,14 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
         let reuseCell = "DrinkCollectionCell"
         let drink = drinks[indexPath.item]
         if let cell = drinkCollection.dequeueReusableCell(withReuseIdentifier: reuseCell, for: indexPath) as? DrinkCollectionCell {
-            cell.image.image = UIImage(named: drink.cup.image)
+            cell.image.image = UIImage(named: drink.image)
             // Hiển thị lượng nước và đơn vị
             var formattedString = ""
             if UserDefaultsKey.getUnit() == 0 {
-                formattedString = String(format: "%.0f", drink.cup.amount) + " ml"
+                formattedString = String(format: "%.0f", drink.amount) + " ml"
             }
             else{
-                formattedString = String(format: "%.2f", drink.cup.amount) + " oz"
+                formattedString = String(format: "%.2f", drink.amount) + " oz"
             }
             cell.amout.text = formattedString
             cell.time.text = drink.time
@@ -217,7 +243,12 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
         let currentTotal = dao.calculateTotalWaterAmount(forDate: strToday)
         let targetWater = UserDefaultsKey.getTotalWater()
         print("Water in database: \(String(currentTotal!))")
-        amoutWaterLabel.text = "\(Int(currentTotal!))/\(Int(targetWater.rounded())) ml"
+        if(UserDefaultsKey.getUnit() == 0){
+            amoutWaterLabel.text = "\(Int(currentTotal!))/\(Int(targetWater.rounded())) ml"
+        }else {
+            amoutWaterLabel.text = "\(Int(currentTotal!))/\(Int(targetWater.rounded())) fl oz"
+        }
+        
         processWater.progress = Float(currentTotal! / targetWater)
     }
 }

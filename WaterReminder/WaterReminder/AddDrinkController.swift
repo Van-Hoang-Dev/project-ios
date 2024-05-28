@@ -8,7 +8,7 @@
 import UIKit
 
 class AddDrinkController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-
+    
     
     @IBOutlet weak var cupCollection: UICollectionView!
     
@@ -64,8 +64,9 @@ class AddDrinkController: UIViewController, UICollectionViewDelegate, UICollecti
         dateFormatter.dateFormat = "HH:mm"
         let now = dateFormatter.string(from: Date())
         UserDefaultsKey.setValue(now, .USER_DRINK_TIME)
-        print("Nay hom nay: \(now)")
-        if dao.insertDrink(cup_id: cups[indexPath.row].id, time: now ,date: todayDate) {
+//        print("User drink time: \(UserDefaultsKey.getDrinkTime()!)")
+//        print("Nay hom nay: \(now)")
+        if dao.insertDrink(cup: cups[indexPath.row], time: now ,date: todayDate) {
             //Chuyen ve man hinh truoc do
             navigationController?.popViewController(animated: true)
         }
@@ -77,10 +78,19 @@ class AddDrinkController: UIViewController, UICollectionViewDelegate, UICollecti
             if let cell = gesture.view as? CupCollectionCell, let indexPath = cupCollection.indexPath(for: cell) {
                 let amount = "\(cups[indexPath.item].amount)" + (UserDefaultsKey.getUnit() == 0 ? "ml" : "oz")
                 let cupId = cups[indexPath.item].id
-                let alert = UIAlertController(title: "Delete", message: "Are you sure you want to delete the \(amount) cup of water? Because this will erase all the glasses of water you drank before!", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+                let cup = cups[indexPath.item]
+                let alert = UIAlertController(title: "Edit", message: "Are you sure you want to delete the \(amount) cup of water?", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Delete", style: .default, handler: { _ in
                     if self.dao.deleteCup(cupId: cupId) {
                         self.updateData()
+                    }
+                }))
+                alert.addAction(UIAlertAction(title: "Edit", style: .default, handler: { _ in
+                    // Khởi tạo AddCupController từ storyboard
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    if let addCupVC = storyboard.instantiateViewController(withIdentifier: "AddCupControllerID") as? AddCupController {
+                        addCupVC.cup = cup
+                        self.navigationController?.pushViewController(addCupVC, animated: true)
                     }
                 }))
                 alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
@@ -88,10 +98,13 @@ class AddDrinkController: UIViewController, UICollectionViewDelegate, UICollecti
             }
         }
     }
-  //Ham lay du lieu tu database
+    //Ham lay du lieu tu database
     func updateData() {
         cups = dao.readCup() ?? []
         cupCollection.reloadData()
+        for cup in cups {
+            print("Cup ID: \(cup.id), Amount: \(cup.amount), Image: \(cup.image)")
+        }
     }
-
+    
 }
