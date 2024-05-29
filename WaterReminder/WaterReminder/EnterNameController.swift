@@ -15,7 +15,6 @@ class EnterNameController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var btnNext: UIButton!
     
-    var user = User()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,13 +48,12 @@ class EnterNameController: UIViewController, UITextFieldDelegate {
         view.endEditing(true)
     }
     
-    //
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination as? SelectGoalController {
-            vc.user = user
-        }
-    }
-    
+//    //
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if let vc = segue.destination as? SelectGoalController {
+//        }
+//    }
+//
     
     func updateButtonState(){
         if let text = username.text, !text.isEmpty {

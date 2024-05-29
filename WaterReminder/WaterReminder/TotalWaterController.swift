@@ -12,7 +12,6 @@ class TotalWaterController: UIViewController {
     
     
     @IBOutlet weak var lblTotalWater: UILabel!
-    var user:User?
     var totalWater:Double = 0.0
     var strUnit = ""
     //kiem tra don vi su dung
@@ -30,7 +29,7 @@ class TotalWaterController: UIViewController {
             strUnit = "fl oz"
         }
         lblTotalWater.text = "\(Int(totalWater.rounded())) \(strUnit)"
-        
+        UserDefaultsKey.setValue(60, .USER_DURATION_TIME)
         //Yeu cao cap quyen thong bao cho ung dung
         let notificationCenter = UNUserNotificationCenter.current()
         notificationCenter.requestAuthorization(options: [.alert, .sound]) { granted, error in
@@ -43,7 +42,6 @@ class TotalWaterController: UIViewController {
                 print("Quyền gửi thông báo không được cấp.")
             }
         }
-        print("Totle water \(user!  .toString())")
         
     }
     

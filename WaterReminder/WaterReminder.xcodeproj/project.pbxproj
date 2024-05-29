@@ -16,7 +16,6 @@
 		0C388DB02BFEEEFA004955DB /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C388DAF2BFEEEFA004955DB /* HomeController.swift */; };
 		0C388DB22BFEEFAF004955DB /* AddDrinkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C388DB12BFEEFAF004955DB /* AddDrinkController.swift */; };
 		0C388DB42BFEEFDA004955DB /* AddCupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C388DB32BFEEFDA004955DB /* AddCupController.swift */; };
-		0C388DB62BFEF081004955DB /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C388DB52BFEF081004955DB /* User.swift */; };
 		0C3D3C742BFDD23B00ABE79B /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D3C6A2BFDD23A00ABE79B /* FMDatabaseQueue.m */; };
 		0C3D3C752BFDD23B00ABE79B /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D3C6C2BFDD23B00ABE79B /* FMDatabasePool.m */; };
 		0C3D3C762BFDD23B00ABE79B /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D3C6D2BFDD23B00ABE79B /* FMResultSet.m */; };
@@ -76,7 +75,6 @@
 		0C388DAF2BFEEEFA004955DB /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		0C388DB12BFEEFAF004955DB /* AddDrinkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDrinkController.swift; sourceTree = "<group>"; };
 		0C388DB32BFEEFDA004955DB /* AddCupController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCupController.swift; sourceTree = "<group>"; };
-		0C388DB52BFEF081004955DB /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		0C3D3C682BFDD23900ABE79B /* WaterReminder-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WaterReminder-Bridging-Header.h"; sourceTree = "<group>"; };
 		0C3D3C692BFDD23A00ABE79B /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDB.h; path = WaterReminder/FMDB/src/FMDB.h; sourceTree = SOURCE_ROOT; };
 		0C3D3C6A2BFDD23A00ABE79B /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseQueue.m; path = WaterReminder/FMDB/src/FMDatabaseQueue.m; sourceTree = SOURCE_ROOT; };
@@ -181,7 +179,6 @@
 		04A823C32BFCF71E0006011D /* models */ = {
 			isa = PBXGroup;
 			children = (
-				0C388DB52BFEF081004955DB /* User.swift */,
 				31DCC6692BFEC0C800EC70CD /* Drink.swift */,
 				31DCC66B2BFEC22100EC70CD /* Cup.swift */,
 				0C6F14452C02322A0021872E /* UserDefaultsKeys.swift */,
@@ -471,7 +468,6 @@
 				0C388DA82BFEED45004955DB /* SetGenderController.swift in Sources */,
 				04A823C92BFD05D10006011D /* TimePickerController.swift in Sources */,
 				31DCC66A2BFEC0C800EC70CD /* Drink.swift in Sources */,
-				0C388DB62BFEF081004955DB /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

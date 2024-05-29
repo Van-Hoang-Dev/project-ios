@@ -9,13 +9,9 @@ import UIKit
 
 class SetGenderController: UIViewController {
     
-    
-    
-    var user:User?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(user!.toString())
         
         // Thiết lập hàm gọi lại cho cả hai nút
         
@@ -26,19 +22,16 @@ class SetGenderController: UIViewController {
 
     @IBAction func btnMaleAc(_ sender: UIButton) {
         UserDefaultsKey.setValue(0, .USER_GENDER)
-        user?.gender = 0
     }
     
     @IBAction func btnFemaleAc(_ sender: UIButton) {
         UserDefaultsKey.setValue(1, .USER_GENDER)
-        user?.gender = 1
     }
     
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? SetUnitController {
-            vc.user = user!
         }
     }
     

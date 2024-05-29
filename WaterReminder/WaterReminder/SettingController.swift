@@ -32,7 +32,8 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         "Male", "Female"
     ]
     var units = ["kg and ml","lb and oz"];
-    let integerArray = Array(20...200)
+    let kgIntegerArray = Array(20...200)
+    let blIntegerArray = Array(44...440)
     var decimalArray = [".0", ".1", ".2", ".3", ".4", ".5", ".6", ".7", ".8", ".9"]
     let durationTimeOptions = [1, 5, 10, 15, 30, 60, 120]
     
@@ -40,7 +41,8 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     let screenHeight = UIScreen.main.bounds.height / 2
     var selectedRow = UserDefaultsKey.getGender()
     var selectedtUnit = UserDefaultsKey.getUnit()
-    var selectedRowNum = Int(UserDefaultsKey.getWeight())
+    var selectedRowNumKg = 0
+    var selectedRowNumBl = 0
     var selectedRowNumDecimal = 0
     var numberOfComponents = 1
     var checkTypePicker = ""
@@ -89,7 +91,7 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
             dateFormatter.dateFormat = "H:mm"
             // Chuyển đổi chuỗi thành đối tượng Date
             if let wakeupDate = dateFormatter.date(from: strWakeUpTime),
-                let sleepDate = dateFormatter.date(from: strSleepTime) {
+               let sleepDate = dateFormatter.date(from: strSleepTime) {
                 wakeUpTime.setDate(wakeupDate, animated: true)
                 sleepTime.setDate(sleepDate, animated: true)
             }
@@ -156,7 +158,7 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
             
             conformAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
             self.present(conformAlert, animated: true)
-        
+            
         }))
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -177,7 +179,12 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         weightPicker.dataSource = self
         weightPicker.delegate = self
         
-        weightPicker.selectRow(selectedRowNum, inComponent: 0, animated: false)
+        if selectedtUnit == 0{
+            weightPicker.selectRow(selectedRowNumKg, inComponent: 0, animated: false)
+        }else{
+            weightPicker.selectRow(selectedRowNumBl, inComponent: 0, animated: false)
+        }
+        
         weightPicker.selectRow(selectedRowNumDecimal, inComponent: 1, animated: false)
         
         vc.view.addSubview(weightPicker)
@@ -194,10 +201,19 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         
         // Thêm các action vào alert
         alert.addAction(UIAlertAction(title: "Select", style: .default, handler: { (action) in
-            self.selectedRowNum = weightPicker.selectedRow(inComponent: 0)
+            if self.selectedtUnit == 0 {
+                self.selectedRowNumKg = weightPicker.selectedRow(inComponent: 0)
+            }else{
+                self.selectedRowNumBl = weightPicker.selectedRow(inComponent: 0)
+            }
             self.selectedRowNumDecimal = weightPicker.selectedRow(inComponent: 1)
-            
-            let weight = String(self.integerArray[self.selectedRowNum]) + self.decimalArray[self.selectedRowNumDecimal]
+            var weightInt = 0
+            if self.selectedtUnit == 0 {
+                weightInt = self.kgIntegerArray[self.selectedRowNumKg]
+            }else {
+                weightInt = self.blIntegerArray[self.selectedRowNumBl]
+            }
+            let weight = String(weightInt) + self.decimalArray[self.selectedRowNumDecimal]
             if UserDefaultsKey.getUnit() == 0 {
                 self.btnPickerWeight.setTitle(weight + " kg", for: .normal)
             }
@@ -236,7 +252,7 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         slider.addTarget(self, action: #selector(self.targetDrinkChangeValue(_:)), for: .valueChanged)
         
         vc.view.addSubview(slider)
-
+        
         slider.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             slider.leadingAnchor.constraint(equalTo: vc.view.leadingAnchor, constant: 16), // Adjust leading space as needed
@@ -257,7 +273,7 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         }
         valueLabel.text = formattedString
         valueLabel.translatesAutoresizingMaskIntoConstraints = false
-
+        
         // Add constraints for the label
         NSLayoutConstraint.activate([
             valueLabel.centerXAnchor.constraint(equalTo: vc.view.centerXAnchor),
@@ -311,7 +327,7 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         durationTimePicker.selectRow(selectedRow, inComponent: 0, animated: false)
         
         vc.view.addSubview(durationTimePicker)
-
+        
         durationTimePicker.translatesAutoresizingMaskIntoConstraints = false
         durationTimePicker.centerXAnchor.constraint(equalTo: vc.view.centerXAnchor).isActive = true
         durationTimePicker.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor).isActive = true
@@ -378,19 +394,20 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
             let conformAlert = UIAlertController(title: "Change Unit", message: "Do you want to change the unit?", preferredStyle: .alert)
             conformAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
                 self.selectedtUnit = unitPicker.selectedRow(inComponent: 0)
-                //Kiem tra don vi nguoi dung lay
+                // Kiểm tra đơn vị người dùng chọn
                 if self.selectedtUnit == 1 && UserDefaultsKey.getUnit() == 0 {
-                    //Chuyen tu kg sang lb
+                    // Chuyển từ kg sang lb
                     self.changeKg_MLToLB_OZ()
                 }
                 if self.selectedtUnit == 0 && UserDefaultsKey.getUnit() == 1 {
-                    //Chuyen tu lb sang kg
+                    // Chuyển từ lb sang kg
                     self.changeLB_OZToKG_ML()
-                    
                 }
                 let selected = self.units[self.selectedtUnit]
                 UserDefaultsKey.setValue(self.selectedtUnit, .USER_UNIT)
                 self.btnPickerUnit.setTitle(selected, for: .normal)
+                // Làm mới lại Picker View sau khi thay đổi đơn vị
+                self.refreshPickerView(pickerView: unitPicker)
             }))
             
             conformAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
@@ -403,7 +420,7 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         self.present(alert, animated: true, completion: nil)
     }
     
-    
+    //MARK: Picker view
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 30))
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
@@ -415,7 +432,12 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         }
         else if checkTypePicker == WEIGHT_PICKER{
             if component == 0 {
-                label.text = String(integerArray[row])
+                if selectedtUnit == 0 {
+                    label.text = String(kgIntegerArray[row])
+                }else {
+                    label.text = String(blIntegerArray[row])
+                }
+                
             } else {
                 label.text = decimalArray[row]
             }
@@ -440,7 +462,11 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         }
         else if checkTypePicker == WEIGHT_PICKER {
             if component == 0 {
-                return integerArray.count
+                if(selectedtUnit == 0){
+                    return kgIntegerArray.count
+                }else{
+                    return blIntegerArray.count
+                }
             } else {
                 return decimalArray.count
             }
@@ -486,12 +512,19 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         //Chuyen tu kg sang lb
         print("Can nang: \(UserDefaultsKey.getWeight())")
         let weight = UserDefaultsKey.getWeight() / self.KG_TO_LB
+        let weightInLb = weight / ML_TO_FLOZ
         let totalDrink = UserDefaultsKey.getTotalWater() / ML_TO_FLOZ
         btnPickerWeight.setTitle(String(Int(weight.rounded())) + " lb", for: .normal)
         btnPickerTargetDrink.setTitle(String(Int(totalDrink.rounded())) + " oz", for: .normal)
         //Thay doi trong local
         UserDefaultsKey.setValue(weight, .USER_WEIGHT)
         UserDefaultsKey.setValue(totalDrink, .USER_TOTAL_WATER)
+        
+        // Cập nhật giá trị selectedRowNum
+//        let selectedBl = weightInLb
+//        selectedRowNumBl = blIntegerArray.firstIndex(of: Int(selectedBl)) ?? 0
+//        selectedRowNumDecimal = Int((selectedBl - Double(blIntegerArray[selectedRowNumBl])) * 10) - 1
+        
         
         //Thay doi trong database
         let cups = dao.readCup() ?? []
@@ -509,15 +542,21 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     
     //Ham chuyen luong nuoc va can nang lb, oz sang kg, ml
     func changeLB_OZToKG_ML () {
-        //Chuyen tu kg sang lb
+        //Chuyen tu bl sang kb
         print("Can nang: \(UserDefaultsKey.getWeight())")
         let weight = UserDefaultsKey.getWeight() * self.KG_TO_LB
+        let weightInKg = weight * ML_TO_FLOZ
         let totalDrink = UserDefaultsKey.getTotalWater() * ML_TO_FLOZ
         btnPickerWeight.setTitle(String(Int(weight.rounded())) + " kg", for: .normal)
         btnPickerTargetDrink.setTitle(String(Int(totalDrink.rounded())) + " ml", for: .normal)
         //Thay doi trong local
         UserDefaultsKey.setValue(weight, .USER_WEIGHT)
         UserDefaultsKey.setValue(totalDrink, .USER_TOTAL_WATER)
+        
+//        let selectedKg = weightInKg
+//        selectedRowNumKg = kgIntegerArray.firstIndex(of: Int(selectedKg)) ?? 0
+//        selectedRowNumDecimal = Int((selectedKg - Double(kgIntegerArray[selectedRowNumKg])) * 10) - 1
+        
         
         //Thay doi trong database
         let cups = dao.readCup() ?? []
@@ -532,6 +571,20 @@ class SettingController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         }
         
     }
-    
+    //hàm làm mới giá trị của weight picker
+    func refreshPickerView(pickerView: UIPickerView) {
+        pickerView.reloadAllComponents()
+        // Chọn lại hàng cho phù hợp với giá trị hiện tại
+        if checkTypePicker == WEIGHT_PICKER {
+            if selectedtUnit == 0 {
+                pickerView.selectRow(selectedRowNumKg, inComponent: 0, animated: true)
+            } else {
+                pickerView.selectRow(selectedRowNumBl, inComponent: 0, animated: true)
+            }
+            pickerView.selectRow(selectedRowNumDecimal, inComponent: 1, animated: true)
+        } else if checkTypePicker == DURATION_TIME_PICKER {
+            pickerView.selectRow(selectedRow, inComponent: 0, animated: true)
+        }
+    }
     
 }

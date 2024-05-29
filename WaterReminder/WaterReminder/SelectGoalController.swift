@@ -13,7 +13,6 @@ class SelectGoalController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var selectGoalTable: UITableView!
     
     var goals = [String]()
-    var user:User?
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -31,15 +30,10 @@ class SelectGoalController: UIViewController, UITableViewDataSource, UITableView
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         UserDefaultsKey.setValue(goals[indexPath.row], .USER_GOAL)
-        user?.goal = goals[indexPath.row]
-        print("selectGoal: \(user!.goal)")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let user = user {
-            print(user.name)
-        }
         // Do any additional setup after loading the view.
         
         // Tao du lieu cho goals
@@ -53,13 +47,12 @@ class SelectGoalController: UIViewController, UITableViewDataSource, UITableView
         selectGoalTable.dataSource = self
     }
     
-    //MARK: Prepare chuan bi du lieu cho man hinh tiep theo
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination as? SetGenderController {
-            vc.user = user!
-        }
-    }
-    
+//    //MARK: Prepare chuan bi du lieu cho man hinh tiep theo
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if let vc = segue.destination as? SetGenderController {
+//        }
+//    }
+//
 
     /*
     // MARK: - Navigation

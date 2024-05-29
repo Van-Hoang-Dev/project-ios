@@ -45,7 +45,7 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
         // Kiểm tra quyền thông báo và tự động đặt thông báo nếu đã được cấp quyền
         morningString = UserDefaultsKey.getWakeUpTime() ?? ""
         sleepString = UserDefaultsKey.getSleepTime() ?? ""
-        let durationTime = UserDefaultsKey.getDurationTime()
+        durationTime = UserDefaultsKey.getDurationTime()
         drinkTime = UserDefaultsKey.getDrinkTime()
         checkAndScheduleNotifications()
         print("Check it run again: \(drinkTime ?? "")")

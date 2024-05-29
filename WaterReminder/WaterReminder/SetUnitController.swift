@@ -9,12 +9,8 @@ import UIKit
 
 class SetUnitController: UIViewController {
     
-    var user:User?
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        print(user!.toString())
         // Do any additional setup after loading the view.
     }
     
@@ -22,22 +18,19 @@ class SetUnitController: UIViewController {
     @IBAction func btnMetType(_ sender: UIButton) {
         // 1 = ml ,m
         UserDefaultsKey.setValue(0, .USER_UNIT)
-        user?.unit = 0
     }
     
     
     @IBAction func btnEnglishType(_ sender: UIButton) {
         // 2 = oz, ft
         UserDefaultsKey.setValue(1, .USER_UNIT)
-        user?.unit = 1
     }
     
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination as? EnterWeightController {
-            vc.user = user!
-        }
-    }
+//    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if let vc = segue.destination as? EnterWeightController {
+//        }
+//    }
 
     /*
     // MARK: - Navigation

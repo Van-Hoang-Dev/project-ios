@@ -13,7 +13,7 @@ class EnterWeightController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var btnNext: UIButton!
     
-    var user:User?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -37,9 +37,24 @@ class EnterWeightController: UIViewController, UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if let weightString = txtWeight.text, let weight = Double(weightString) {
-            user?.weight = weight
-            UserDefaultsKey.setValue(weight, .USER_WEIGHT)
-            print("user.weight =\(user!.weight)")
+            if (UserDefaultsKey.getUnit() == 0) {
+                if(weight >= 20 && weight <= 200){
+                    UserDefaultsKey.setValue(weight, .USER_WEIGHT)
+                }else {
+                    let alert = UIAlertController(title: "Warning", message: "Cân nặng phải từ 20kg đến 200kg", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }else {
+                if(weight >= 44 && weight <= 440){
+                    UserDefaultsKey.setValue(weight, .USER_WEIGHT)
+                }else {
+                    let alert = UIAlertController(title: "Warning", message: "Cân nặng phải từ 44bl đến 440bl", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }
+            
         }
         else {
             print("Không thể chuyển đổi \(String(describing: txtWeight.text)) thành kiểu Double.")
@@ -52,12 +67,11 @@ class EnterWeightController: UIViewController, UITextFieldDelegate {
         view.endEditing(true)
     }
     
-    //
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination as? TimePickerController {
-            vc.user = user
-        }
-    }
+//    //
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if let vc = segue.destination as? TimePickerController {
+//        }
+//    }
     
     
     func updateButtonState(){
